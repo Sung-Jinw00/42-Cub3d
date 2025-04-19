@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/19 19:06:40 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/19 20:45:18 by locagnio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@
 # include <stdlib.h> // malloc, free, exit
 # include <string.h> // strerror
 
-# include "ultimate_libft.h"
+# include "libft.h"
 
 #endif
