@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 00:34:18 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 01:14:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ static int	check_elems(char *file_infos, int *i, char *elems[], t_map *map_inf)
 			&& !ft_strncmp(file_infos + *i, elems[j], ft_strlen(elems[j])))
 			get_map_infos(map_inf, file_infos + *i, j++, 0);
 		else
+		{
+			free_map(map_inf);
 			return (ft_write(2, "Error\nElements aren't in right order.\n"), 0);
+		}
 		count--;
 		while (file_infos[*i] && file_infos[*i] != '\n')
 			(*i)++;
@@ -97,9 +100,9 @@ int	treat_file(char *map_name, t_map *map_infos)
 		ft_free(&file_infos);
 		return (ft_write(2, "Error\nNo map given.\n"));
 	}
-	map_infos->map = treat_map(file_infos + i, 0, 0);
+	map_infos->map = treat_map(file_infos + i, 0, 0, map_infos);
 	ft_free(&file_infos);
 	if (!map_infos->map)
-		return (1);
+		return (free_map(map_infos), 1);
 	return (0);
 }
