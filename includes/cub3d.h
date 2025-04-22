@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/22 21:43:05 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/23 00:07:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ typedef struct s_map
 	int		f_rgb[3];
 	int		c_rgb[3];
 	char	*map;
+	int		lenght_map;
+	int		height_map;
 }	t_map;
 
 //main
 int		main(int ac, char **av);
 
 //parse and treat file
-char	*treat_map(char *map_infos);
+char	*treat_map(char *map, int i, int j);
 int		treat_file(char *map_name, t_map *map_infos);
 
 //print

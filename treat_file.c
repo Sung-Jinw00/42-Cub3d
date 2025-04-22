@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   treat_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/22 21:40:20 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/23 00:34:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static int	check_elems(char *file_infos, int *i, char *elems[], t_map *map_inf)
 	int	count;
 
 	count = 6;
+	j = 0;
 	while (file_infos[*i] && count)
 	{
 		while (file_infos[*i] && file_infos[*i] == '\n')
@@ -83,15 +84,21 @@ int	treat_file(char *map_name, t_map *map_infos)
 	i = 0;
 	init_elem_infos(elems);
 	file_infos = ft_read_file(map_name);
-	if (!file_infos || !check_elems(file_infos, &i, elems, &map_infos))
+	if (!file_infos || !file_infos[0])
+		return (ft_write(2, "Error\nEmpty file.\n"));
+	else if (!check_elems(file_infos, &i, elems, map_infos))
 		return (1);
 	while (file_infos[i] && file_infos[i] != '\n')
 		i++;
-	while (file_infos[i] && multi_charcmp(file_infos[i], "01NSEW "))
+	while (file_infos[i] && !multi_charcmp(file_infos[i], "01NSEW "))
 		i++;
 	if (!file_infos[i])
+	{
+		ft_free(&file_infos);
 		return (ft_write(2, "Error\nNo map given.\n"));
-	map_infos->map = treat_map(file_infos + i);
+	}
+	map_infos->map = treat_map(file_infos + i, 0, 0);
+	ft_free(&file_infos);
 	if (!map_infos->map)
 		return (1);
 	return (0);

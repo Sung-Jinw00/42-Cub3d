@@ -2,6 +2,11 @@
 	"files.associations": {
 		"cub3d.h": "c",
 		"math.h": "c",
-		"fcntl.h": "c"
+		"fcntl.h": "c",
+		"libft.h": "c",
+		"ft_chain_lists.h": "c",
+		"ft_police.h": "c",
+		"ft_free.h": "c",
+		"ft_colors.h": "c"
 	}
 }

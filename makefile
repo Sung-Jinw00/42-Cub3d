@@ -3,12 +3,12 @@ MAKEFLAGS += -s
 CC				= cc
 FLAGS			= -Wall -Wextra -Werror -g
 HDRS			= includes
-LIBFT_DIR		= libft+extras
+LIBFT_DIR		= libft
 LIBFT			= $(LIBFT_DIR)/libft.a
 SRCS_DIR		= ./
 OBJ_DIR			= obj
 
-SRCS			= $(shell find $(SRCS_DIR)minishell_srcs -type f -name '*.c')
+SRCS			= $(shell find $(SRCS_DIR) -type f -name '*.c')
 
 SRC_O			= $(SRCS:$(SRCS_DIR)%.c=$(OBJ_DIR)/%.o)
 
