@@ -6,13 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 01:16:48 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 02:10:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*formated_map(char **map_array, t_map *map, int *len_strings)
+static char	*formated_map(char **map_array, t_map *map, int *len_strings)
 {
 	char	*formated_map;
 	char	*spaces;
@@ -40,29 +40,47 @@ char	*formated_map(char **map_array, t_map *map, int *len_strings)
 	return (ft_replace_from_string(formated_map, " ", "1", 1));
 }
 
+/* check the 9 boxs around a space and see if it's surrounded with 1 or spaces*/
+static int	walls_around(int *len_strings, char **map_array, int i, int j)
+{
+	if ((map_array[j + 1] && i < len_strings[j + 1]
+		&& !multi_charcmp(map_array[j + 1][i], "1 "))
+	|| (map_array[j + 1] && i < len_strings[j + 1]
+		&& !multi_charcmp(map_array[j + 1][i + 1], "1 "))
+	|| (map_array[j + 1] && i > 0 && i < len_strings[j + 1]
+		&& !multi_charcmp(map_array[j + 1][i - 1], "1 "))
+	|| (j > 0 && i < len_strings[j - 1]
+		&& !multi_charcmp(map_array[j - 1][i], "1 "))
+	|| (j > 0 && i < len_strings[j - 1]
+		&& !multi_charcmp(map_array[j - 1][i + 1], "1 "))
+	|| (j > 0 && i > 0 && i < len_strings[j - 1]
+		&& !multi_charcmp(map_array[j - 1][i - 1], "1 "))
+	|| (map_array[j][i] && map_array[j][i + 1]
+		&& !multi_charcmp(map_array[j][i + 1], "1 "))
+	|| (i > 0
+		&& !multi_charcmp(map_array[j][i - 1], "1 ")))
+		return (0);
+	return (1);
+}
+
 /* if a space is not surrounded by the limits of the map, it return 0 */
-int	check_limits(char **map_array, int map_height, int *len_strings)
+static int	check_limits(char **map_array, int map_height, int *len_strings)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	j = 1;
+	j = 0;
 	while (j < map_height)
 	{
 		while (map_array[j][i])
 		{
 			if (map_array[j][i] == ' '
-				&& ((i < len_strings[j - 1]
-						&& !multi_charcmp(map_array[j + 1][i], "1 "))
-					|| (i < len_strings[j + 1]
-						&& !multi_charcmp(map_array[j - 1][i], "1 "))
-					|| (map_array[j][i + 1]
-						&& !multi_charcmp(map_array[j][i + 1], "1 "))
-					|| (i > 0
-						&& !multi_charcmp(map_array[j][i - 1], "1 "))))
+				&& !walls_around(len_strings, map_array, i, j))
 				return (0);
 			i++;
+			if (!map_array[j][i] && !walls_around(len_strings, map_array, i, j))
+				return (0);
 		}
 		i = 0;
 		j++;
@@ -71,7 +89,7 @@ int	check_limits(char **map_array, int map_height, int *len_strings)
 }
 
 /* check the sides of map to see if it's well bordered */
-int	check_sides(char **map_array, int map_height, int *len_strings)
+static int	check_sides(char **map_array, int map_height, int *len_strings)
 {
 	int	j;
 
