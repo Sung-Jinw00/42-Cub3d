@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 03:05:32 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 16:44:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,15 +120,15 @@ char	*treat_map(char *map, int i, int j, t_map *map_datas)
 	if (!len_strings)
 		return (free_array(&map_array),
 			ft_write(2, "Error\nFail getting len of strings.\n"), NULL);
-	i = -1;
 	while (map_array[++i])
 		len_strings[i] = ft_strlen(map_array[i]);
-	i = 0;
 	if (!ft_str_isformat(map_array[j++], "1 ")
 		|| !ft_str_isformat(map_array[map_datas->h_map - 1], "1 ")
 		|| !check_sides(map_array, map_datas->h_map, len_strings)
 		|| !check_limits(map_array, map_datas->h_map, len_strings))
 		return (free(len_strings), free_array(&map_array),
 			ft_write(2, "Error\nMap is invalid.\n"), NULL);
+	if (!only_one_player(map))
+		return (free(len_strings), free_array(&map_array), NULL);
 	return (formated_map(map_array, map_datas, len_strings));
 }

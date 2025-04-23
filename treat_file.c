@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 03:03:57 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 16:52:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,27 @@ static int	get_map_infos(t_map *map_inf, char *info, int elem, int j)
 {
 	int	*rgb;
 	int	i;
+	int	len_line;
 
+	len_line = ft_strclen(info, '\n');
+	if (elem < 4 && len_line < 4)
+		return (ft_write(2, "Error\nNo informations for an elem.\n"), 0);
+	if (elem < 4)
+		len_line = ft_strclen(info + 3, '\n');
 	if (elem == 0)
-		map_inf->no_path = ft_strndup(info + 3, ft_strclen(info, '\n'));
+		map_inf->no_path = ft_strndup(info + 3, len_line);
 	else if (elem == 1)
-		map_inf->so_path = ft_strndup(info + 3, ft_strclen(info, '\n'));
+		map_inf->so_path = ft_strndup(info + 3, len_line);
 	else if (elem == 2)
-		map_inf->we_path = ft_strndup(info + 3, ft_strclen(info, '\n'));
+		map_inf->we_path = ft_strndup(info + 3, len_line);
 	else if (elem == 3)
-		map_inf->ea_path = ft_strndup(info + 3, ft_strclen(info, '\n'));
+		map_inf->ea_path = ft_strndup(info + 3, len_line);
 	else if ((elem == 4 || elem == 5) && !get_rgb(map_inf, info, elem, j))
 		return (0);
-	if (ft_str_charset(map_inf->no_path, "\n\t\r\a\b\v\f ")
-		|| ft_str_charset(map_inf->so_path, "\n\t\r\a\b\v\f ")
-		|| ft_str_charset(map_inf->we_path, "\n\t\r\a\b\v\f ")
-		|| ft_str_charset(map_inf->ea_path, "\n\t\r\a\b\v\f "))
+	if (ft_str_charset(map_inf->no_path, WSPACES)
+		|| ft_str_charset(map_inf->so_path, WSPACES)
+		|| ft_str_charset(map_inf->we_path, WSPACES)
+		|| ft_str_charset(map_inf->ea_path, WSPACES))
 		return (ft_write(2, "Error\nInvalid path to texture.\n"), 0);
 	return (1);
 }
@@ -121,7 +127,7 @@ int	treat_file(char *map_name, t_map *map_infos)
 		ft_free(&file_infos);
 		return (ft_write(2, "Error\nNo map given.\n"));
 	}
-	map_infos->map = treat_map(file_infos + i, 0, 0, map_infos);
+	map_infos->map = treat_map(file_infos + i, -1, 0, map_infos);
 	ft_free(&file_infos);
 	if (!map_infos->map)
 		return (free_map(map_infos), 1);

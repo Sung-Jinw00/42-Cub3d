@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   usage_prompt.c                                     :+:      :+:    :+:   */
+/*   printing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:56:33 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 01:15:10 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 16:44:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,4 @@ int	usage_prompt(void)
 	ft_write(2, "map, if there's spaces inside the\n\t\t   map, they should ");
 	ft_write(2, "be surrounded with walls to be valid.\n\n");
 	return (1);
-}
-
-void	free_map(t_map *map)
-{
-	if (map->no_path)
-		ft_free(&map->no_path);
-	if (map->so_path)
-		ft_free(&map->so_path);
-	if (map->we_path)
-		ft_free(&map->we_path);
-	if (map->ea_path)
-		ft_free(&map->ea_path);
-	if (map->map)
-		ft_free(&map->map);
 }
