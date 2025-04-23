@@ -6,24 +6,22 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 16:44:22 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 18:58:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*formated_map(char **map_array, t_map *map, int *len_strings)
+static char	*formated_map(char **map_array, t_map *map, int *len_strings, int i)
 {
 	char	*formated_map;
 	char	*spaces;
-	int		i;
 
-	i = -1;
-	map->l_map = len_strings[++i];
 	while (++i < map->h_map)
 		if (map->l_map < len_strings[i])
 			map->l_map = len_strings[i];
-	formated_map = ft_calloc(sizeof(char), map->h_map * map->l_map + 1);
+	formated_map = ft_calloc(sizeof(char),
+			map->h_map * map->l_map + map->l_map - 1 + 1);
 	spaces = ft_calloc(sizeof(char), map->l_map + 1);
 	if (!formated_map || !spaces)
 		return (free(len_strings), free_array(&map_array),
@@ -33,8 +31,10 @@ static char	*formated_map(char **map_array, t_map *map, int *len_strings)
 	while (map_array[++i])
 	{
 		ft_strcat(formated_map, map_array[i]);
-		if (len_strings[i] < map->l_map)
+		if (i < map->h_map)
 			ft_strncat(formated_map, spaces, map->l_map - len_strings[i]);
+		if (i < map->h_map - 1)
+			ft_strcat(formated_map, "\n");
 	}
 	multi_free("1, 1, 2", spaces, len_strings, map_array, NULL);
 	return (ft_replace_from_string(formated_map, " ", "1", 1));
@@ -45,15 +45,15 @@ static int	walls_around(int *len_strings, char **map_array, int i, int j)
 {
 	if ((map_array[j + 1] && i < len_strings[j + 1]
 			&& !multi_charcmp(map_array[j + 1][i], "1 "))
-	|| (map_array[j + 1] && i < len_strings[j + 1]
+	|| (map_array[j + 1] && i + 1 < len_strings[j + 1]
 		&& !multi_charcmp(map_array[j + 1][i + 1], "1 "))
-	|| (map_array[j + 1] && i > 0 && i < len_strings[j + 1]
+	|| (map_array[j + 1] && i > 0 && i - 1 < len_strings[j + 1]
 		&& !multi_charcmp(map_array[j + 1][i - 1], "1 "))
 	|| (j > 0 && i < len_strings[j - 1]
 		&& !multi_charcmp(map_array[j - 1][i], "1 "))
-	|| (j > 0 && i < len_strings[j - 1]
+	|| (j > 0 && i + 1 < len_strings[j - 1]
 		&& !multi_charcmp(map_array[j - 1][i + 1], "1 "))
-	|| (j > 0 && i > 0 && i < len_strings[j - 1]
+	|| (j > 0 && i > 0 && i - 1 < len_strings[j - 1]
 		&& !multi_charcmp(map_array[j - 1][i - 1], "1 "))
 	|| (map_array[j][i] && map_array[j][i + 1]
 		&& !multi_charcmp(map_array[j][i + 1], "1 "))
@@ -130,5 +130,5 @@ char	*treat_map(char *map, int i, int j, t_map *map_datas)
 			ft_write(2, "Error\nMap is invalid.\n"), NULL);
 	if (!only_one_player(map))
 		return (free(len_strings), free_array(&map_array), NULL);
-	return (formated_map(map_array, map_datas, len_strings));
+	return (formated_map(map_array, map_datas, len_strings, -1));
 }

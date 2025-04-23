@@ -18,6 +18,7 @@ int	only_one_player(char *map)
 	size_t	nb_players;
 
 	i = 0;
+	nb_players = 0;
 	while (map[i])
 	{
 		if (multi_charcmp(map[i], "NSEW"))

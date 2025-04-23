@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 16:41:19 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 18:32:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <unistd.h> // read, write, close
 # include <stdlib.h> // malloc, free, exit
 # include <string.h> // strerror
+# include <X11/xpm.h>
+
 
 # include "libft.h"
 
@@ -47,6 +49,7 @@ int	only_one_player(char *map);
 
 //print
 int		usage_prompt(void);
+void	print_map(t_map *map);
 
 //free
 void	free_map(t_map *map);

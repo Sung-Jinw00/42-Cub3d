@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:46:30 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 01:16:05 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 18:50:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int ac, char **av)
 		map_infos = (t_map){0};
 		if (treat_file(av[1], &map_infos))
 			return (1);
+		print_map(&map_infos);
 		free_map(&map_infos);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 16:52:00 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 18:10:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	get_rgb(t_map *map_inf, char *info, int elem, int j)
 	while (rgb && j < 3)
 	{
 		rgb[j++] = ft_natoi(info, &i);
-		if (!ft_isnum(info[i] - 1) || rgb[j - 1] > 255 || rgb[j - 1] < 0)
+		if (!ft_isnum(info[i - 1]) || rgb[j - 1] > 255 || rgb[j - 1] < 0)
 			return (ft_write(2, "Error\nInvalid RGB color.\n"), 0);
 		i++;
 	}
@@ -49,8 +49,6 @@ int	get_rgb(t_map *map_inf, char *info, int elem, int j)
 /* get the valid elements in the structure */
 static int	get_map_infos(t_map *map_inf, char *info, int elem, int j)
 {
-	int	*rgb;
-	int	i;
 	int	len_line;
 
 	len_line = ft_strclen(info, '\n');
@@ -66,12 +64,12 @@ static int	get_map_infos(t_map *map_inf, char *info, int elem, int j)
 		map_inf->we_path = ft_strndup(info + 3, len_line);
 	else if (elem == 3)
 		map_inf->ea_path = ft_strndup(info + 3, len_line);
-	else if ((elem == 4 || elem == 5) && !get_rgb(map_inf, info, elem, j))
+	else if ((elem == 4 || elem == 5) && !get_rgb(map_inf, info + 2, elem, j))
 		return (0);
-	if (ft_str_charset(map_inf->no_path, WSPACES)
-		|| ft_str_charset(map_inf->so_path, WSPACES)
-		|| ft_str_charset(map_inf->we_path, WSPACES)
-		|| ft_str_charset(map_inf->ea_path, WSPACES))
+	if (ft_str_charset(map_inf->no_path, "\a\b\t\n\v\f ")
+		|| ft_str_charset(map_inf->so_path, "\a\b\t\n\v\f ")
+		|| ft_str_charset(map_inf->we_path, "\a\b\t\n\v\f ")
+		|| ft_str_charset(map_inf->ea_path, "\a\b\t\n\v\f "))
 		return (ft_write(2, "Error\nInvalid path to texture.\n"), 0);
 	return (1);
 }
