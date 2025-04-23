@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 18:58:37 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 21:07:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static char	*formated_map(char **map_array, t_map *map, int *len_strings, int i)
 	char	*formated_map;
 	char	*spaces;
 
+	
 	while (++i < map->h_map)
 		if (map->l_map < len_strings[i])
 			map->l_map = len_strings[i];

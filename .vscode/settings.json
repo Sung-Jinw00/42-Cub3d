@@ -7,6 +7,7 @@
 		"ft_chain_lists.h": "c",
 		"ft_police.h": "c",
 		"ft_free.h": "c",
-		"ft_colors.h": "c"
+		"ft_colors.h": "c",
+		"ft_maths.h": "c"
 	}
 }
