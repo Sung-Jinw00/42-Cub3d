@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:46:30 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 19:05:12 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 20:56:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int ac, char **av)
 			return (ft_write(2, "Error\nfile with '.cub' extension needed.\n"));
 		map_infos = (t_map){0};
 		if (treat_file(av[1], &map_infos))
-			return (1);
+			return (free_map(&map_infos), 1);
 		print_map(&map_infos);
 		free_map(&map_infos);
 	}

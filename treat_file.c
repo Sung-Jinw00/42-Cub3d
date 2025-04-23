@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 18:10:15 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 20:57:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	treat_file(char *map_name, t_map *map_infos)
 	if (!file_infos || !file_infos[0])
 		return (ft_write(2, "Error\nEmpty file.\n"));
 	else if (!check_elems(file_infos, &i, elems, map_infos))
-		return (free(file_infos), free_map(map_infos), 1);
+		return (free(file_infos), 1);
 	while (file_infos[i] && file_infos[i] != '\n')
 		i++;
 	while (file_infos[i] && !multi_charcmp(file_infos[i], "01NSEW "))
@@ -128,6 +128,6 @@ int	treat_file(char *map_name, t_map *map_infos)
 	map_infos->map = treat_map(file_infos + i, -1, 0, map_infos);
 	ft_free(&file_infos);
 	if (!map_infos->map)
-		return (free_map(map_infos), 1);
+		return (1);
 	return (0);
 }
