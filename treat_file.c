@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 02:41:56 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 03:03:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ static int	get_map_infos(t_map *map_inf, char *info, int elem, int j)
 	int	i;
 
 	if (elem == 0)
-	{
 		map_inf->no_path = ft_strndup(info + 3, ft_strclen(info, '\n'));
-		if (ft_str_charset(map_inf->no_path, "\n\t\r\a\b\v\f "))
-	}
 	else if (elem == 1)
 		map_inf->so_path = ft_strndup(info + 3, ft_strclen(info, '\n'));
 	else if (elem == 2)
@@ -65,6 +62,11 @@ static int	get_map_infos(t_map *map_inf, char *info, int elem, int j)
 		map_inf->ea_path = ft_strndup(info + 3, ft_strclen(info, '\n'));
 	else if ((elem == 4 || elem == 5) && !get_rgb(map_inf, info, elem, j))
 		return (0);
+	if (ft_str_charset(map_inf->no_path, "\n\t\r\a\b\v\f ")
+		|| ft_str_charset(map_inf->so_path, "\n\t\r\a\b\v\f ")
+		|| ft_str_charset(map_inf->we_path, "\n\t\r\a\b\v\f ")
+		|| ft_str_charset(map_inf->ea_path, "\n\t\r\a\b\v\f "))
+		return (ft_write(2, "Error\nInvalid path to texture.\n"), 0);
 	return (1);
 }
 

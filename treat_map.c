@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 02:10:00 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/23 03:05:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*formated_map(char **map_array, t_map *map, int *len_strings)
 static int	walls_around(int *len_strings, char **map_array, int i, int j)
 {
 	if ((map_array[j + 1] && i < len_strings[j + 1]
-		&& !multi_charcmp(map_array[j + 1][i], "1 "))
+			&& !multi_charcmp(map_array[j + 1][i], "1 "))
 	|| (map_array[j + 1] && i < len_strings[j + 1]
 		&& !multi_charcmp(map_array[j + 1][i + 1], "1 "))
 	|| (map_array[j + 1] && i > 0 && i < len_strings[j + 1]
