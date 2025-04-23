@@ -17,10 +17,7 @@ static char	*formated_map(char **map_array, t_map *map, int *len_strings, int i)
 	char	*formated_map;
 	char	*spaces;
 
-	
-	while (++i < map->h_map)
-		if (map->l_map < len_strings[i])
-			map->l_map = len_strings[i];
+	map->l_map = ft_max(len_strings, map->h_map);
 	formated_map = ft_calloc(sizeof(char),
 			map->h_map * map->l_map + map->l_map - 1 + 1);
 	spaces = ft_calloc(sizeof(char), map->l_map + 1);
