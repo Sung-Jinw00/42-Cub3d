@@ -48,7 +48,7 @@ void	print_map(t_map *m)
 		printf("ea_path = (null)\n");
 	printf("f_rgb = {%d, %d, %d}\n", m->f_rgb[0], m->f_rgb[1], m->f_rgb[2]);
 	printf("c_rgb = {%d, %d, %d}\n", m->c_rgb[0], m->c_rgb[1], m->c_rgb[2]);
-	printf("h_map = %d\nl_map = %d\n", m->h_map, m->l_map);
+	printf("h_map = %d\nl_map = %d\n", m->h_map, m->w_map);
 	if (m->map)
 		printf("map :\n%s\n", m->map);
 	else

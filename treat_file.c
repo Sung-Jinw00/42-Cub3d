@@ -118,15 +118,15 @@ int	treat_file(char *map_name, t_map *map_infos)
 		return (free(file_infos), 1);
 	while (file_infos[i] && file_infos[i] != '\n')
 		i++;
-	while (file_infos[i] && !multi_charcmp(file_infos[i], "01NSEW "))
+	while (file_infos[i] && !ft_strchr("01NSEW ", file_infos[i]))
 		i++;
 	if (!file_infos[i])
 	{
-		ft_free(&file_infos);
+		free(&file_infos);
 		return (ft_write(2, "Error\nNo map given.\n"));
 	}
 	map_infos->map = treat_map(file_infos + i, -1, 0, map_infos);
-	ft_free(&file_infos);
+	free(&file_infos);
 	if (!map_infos->map)
 		return (1);
 	return (0);

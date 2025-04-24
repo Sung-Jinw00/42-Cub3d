@@ -21,7 +21,7 @@ int	only_one_player(char *map)
 	nb_players = 0;
 	while (map[i])
 	{
-		if (multi_charcmp(map[i], "NSEW"))
+		if (ft_strchr("NSEW", map[i]))
 			nb_players++;
 		if (nb_players > 1)
 		{

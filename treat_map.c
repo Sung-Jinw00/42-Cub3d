@@ -17,20 +17,20 @@ static char	*formated_map(char **map_array, t_map *map, int *len_strings, int i)
 	char	*formated_map;
 	char	*spaces;
 
-	map->l_map = ft_max(len_strings, map->h_map);
+	map->w_map = ft_max_array(len_strings, map->h_map);
 	formated_map = ft_calloc(sizeof(char),
-			map->h_map * map->l_map + map->l_map - 1 + 1);
-	spaces = ft_calloc(sizeof(char), map->l_map + 1);
+			map->h_map * map->w_map + map->w_map - 1 + 1);
+	spaces = ft_calloc(sizeof(char), map->w_map + 1);
 	if (!formated_map || !spaces)
 		return (free(len_strings), free_array(&map_array),
 			ft_write(2, "Error\nFailed creating formated map.\n"), NULL);
-	memset(spaces, ' ', map->l_map);
+	memset(spaces, ' ', map->w_map);
 	i = -1;
 	while (map_array[++i])
 	{
 		ft_strcat(formated_map, map_array[i]);
 		if (i < map->h_map)
-			ft_strncat(formated_map, spaces, map->l_map - len_strings[i]);
+			ft_strncat(formated_map, spaces, map->w_map - len_strings[i]);
 		if (i < map->h_map - 1)
 			ft_strcat(formated_map, "\n");
 	}
@@ -42,21 +42,21 @@ static char	*formated_map(char **map_array, t_map *map, int *len_strings, int i)
 static int	walls_around(int *len_strings, char **map_array, int i, int j)
 {
 	if ((map_array[j + 1] && i < len_strings[j + 1]
-			&& !multi_charcmp(map_array[j + 1][i], "1 "))
+			&& !ft_strchr("1 ", map_array[j + 1][i]))
 	|| (map_array[j + 1] && i + 1 < len_strings[j + 1]
-		&& !multi_charcmp(map_array[j + 1][i + 1], "1 "))
+		&& !ft_strchr("1 ", map_array[j + 1][i + 1]))
 	|| (map_array[j + 1] && i > 0 && i - 1 < len_strings[j + 1]
-		&& !multi_charcmp(map_array[j + 1][i - 1], "1 "))
+		&& !ft_strchr("1", map_array[j + 1][i - 1]))
 	|| (j > 0 && i < len_strings[j - 1]
-		&& !multi_charcmp(map_array[j - 1][i], "1 "))
+		&& !ft_strchr("1 ", map_array[j - 1][i]))
 	|| (j > 0 && i + 1 < len_strings[j - 1]
-		&& !multi_charcmp(map_array[j - 1][i + 1], "1 "))
+		&& !ft_strchr("1 ", map_array[j - 1][i + 1]))
 	|| (j > 0 && i > 0 && i - 1 < len_strings[j - 1]
-		&& !multi_charcmp(map_array[j - 1][i - 1], "1 "))
+		&& !ft_strchr("1 ", map_array[j - 1][i - 1]))
 	|| (map_array[j][i] && map_array[j][i + 1]
-		&& !multi_charcmp(map_array[j][i + 1], "1 "))
+		&& !ft_strchr("1 ", map_array[j][i + 1]))
 	|| (i > 0
-		&& !multi_charcmp(map_array[j][i - 1], "1 ")))
+		&& !ft_strchr("1 ", map_array[j][i - 1])))
 		return (0);
 	return (1);
 }
