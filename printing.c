@@ -53,4 +53,11 @@ void	print_map(t_map *m)
 		printf("map :\n%s\n", m->map);
 	else
 		printf("map = (null)\n");
+	if (m->map_array)
+	{
+		printf("map_array :\n");
+		print_array(m->map_array);
+	}
+	else
+		printf("map = (null)\n");
 }

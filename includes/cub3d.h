@@ -33,6 +33,7 @@ typedef struct s_map
 	int		f_rgb[3];
 	int		c_rgb[3];
 	char	*map;
+	char	**map_array;
 	int		w_map;
 	int		h_map;
 }	t_map;

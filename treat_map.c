@@ -15,27 +15,28 @@
 static char	*formated_map(char **map_array, t_map *map, int *len_strings, int i)
 {
 	char	*formated_map;
-	char	*spaces;
+	int		j;
 
 	map->w_map = ft_max_array(len_strings, map->h_map);
-	formated_map = ft_calloc(sizeof(char),
-			map->h_map * map->w_map + map->w_map - 1 + 1);
-	spaces = ft_calloc(sizeof(char), map->w_map + 1);
-	if (!formated_map || !spaces)
-		return (free(len_strings), free_array(&map_array),
-			ft_write(2, "Error\nFailed creating formated map.\n"), NULL);
-	memset(spaces, ' ', map->w_map);
-	i = -1;
 	while (map_array[++i])
 	{
-		ft_strcat(formated_map, map_array[i]);
-		if (i < map->h_map)
-			ft_strncat(formated_map, spaces, map->w_map - len_strings[i]);
-		if (i < map->h_map - 1)
-			ft_strcat(formated_map, "\n");
+		if (len_strings[i] < map->w_map)
+		map_array[i] = ft_realloc(map_array[i], map->w_map);
+		j = -1;
+		while (++j < map->w_map)
+			if (map_array[i][j] == ' ' || map_array[i][j] == 0)
+				map_array[i][j] = '1';
 	}
-	multi_free("1, 1, 2", spaces, len_strings, map_array, NULL);
-	return (ft_replace_from_string(formated_map, " ", "1", 1));
+	map->map_array = map_array;
+	free(len_strings);
+	formated_map = malloc(sizeof(char) * (map->h_map * map->w_map + 1));
+	if (!formated_map)
+		return (ft_write(2, "Error\nFailed creating formated map.\n"), NULL);
+	i = -1;
+	while (map_array[++i])
+		ft_memcpy(formated_map + (i * map->w_map), map_array[i], map->w_map);
+	formated_map[i * map->w_map] = 0;
+	return (formated_map);
 }
 
 /* check the 9 boxs around a space and see if it's surrounded with 1 or spaces*/
