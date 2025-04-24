@@ -60,8 +60,8 @@ static int	get_map_infos(t_map *map, char *info, char **elem, int elem_nb)
 			return (error("No informations for an elem.\n"), 0);
 		len_line = ft_strclen(info + 3, '\n');
 		*elem = ft_strndup(info + 3, len_line);
-		if (ft_str_charset(*elem, "\a\b\t\n\v\f "))
-			return (error("Invalid path to texture.\n"), 0);
+		if (!path_is_valid(*elem))
+			return (0);
 	}
 	else if ((elem_nb < 6) && !get_rgb(map, info + 2, elem_nb))
 		return (0);

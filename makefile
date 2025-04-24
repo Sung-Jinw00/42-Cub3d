@@ -23,7 +23,7 @@ FILES = main.c\
 		treat_map.c\
 		treat_file.c\
 		player_check.c\
-		treat_file_util.c
+		treat_file_utils.c
 
 OBJS = $(FILES:%.c=$(OBJ_DIR)/%.o)
 
