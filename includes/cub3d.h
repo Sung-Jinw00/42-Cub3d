@@ -48,6 +48,8 @@ int	only_one_player(char *map);
 
 //print
 int		usage_prompt(void);
+void	error(char *msg);
+
 void	print_map(t_map *map);
 
 //free
