@@ -68,10 +68,10 @@ static int	check_limits(char **map_array, int map_height, int *len_strings)
 	int	i;
 	int	j;
 
-	i = 0;
 	j = 0;
 	while (j < map_height)
 	{
+		i = 0;
 		while (map_array[j][i])
 		{
 			if (map_array[j][i] == ' '
@@ -81,7 +81,6 @@ static int	check_limits(char **map_array, int map_height, int *len_strings)
 			if (!map_array[j][i] && !walls_around(len_strings, map_array, i, j))
 				return (0);
 		}
-		i = 0;
 		j++;
 	}
 	return (1);
@@ -95,9 +94,8 @@ static int	check_sides(char **map_array, int map_height, int *len_strings)
 	j = 1;
 	while (j < map_height)
 	{
-		if (!(map_array[j][0] == ' ' || map_array[j][0] == '1')
-			|| !(map_array[j][len_strings[j] - 1] == ' '
-			|| map_array[j][len_strings[j] - 1] == '1'))
+		if (!ft_strchr("1 ", map_array[j][0])
+			|| !ft_strchr("1 ", map_array[j][len_strings[j] - 1]))
 			return (0);
 		j++;
 	}

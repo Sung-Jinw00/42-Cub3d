@@ -1,7 +1,9 @@
 *.o
 *.a
 *.sw*
-.vscode/
+.vscode
 *.json
 *.gch
+*.cub
+src/test.c
 cub3d

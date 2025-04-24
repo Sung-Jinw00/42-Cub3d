@@ -25,13 +25,13 @@ int	only_one_player(char *map)
 			nb_players++;
 		if (nb_players > 1)
 		{
-			ft_write(2, "Error\nMore than one player.\n");
+			write(2, "Error\nMore than one player.\n", 27);
 			return (0);
 		}
 		i++;
 	}
 	if (nb_players == 1)
 		return (1);
-	ft_write(2, "Error\nNo player on the map.\n");
+	write(2, "Error\nNo player on the map.\n", 28);
 	return (0);
 }
