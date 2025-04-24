@@ -36,9 +36,6 @@ typedef struct s_map
 	int		h_map;
 }	t_map;
 
-//main
-int		main(int ac, char **av);
-
 //parse and treat file
 char	**get_elem(t_map *map, int elem);
 int		treat_file(char *map_name, t_map *map_infos);
