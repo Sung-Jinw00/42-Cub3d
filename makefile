@@ -18,12 +18,12 @@ MLX_FLAGS = -lX11 -lXext -lm
 
 FILES = main.c\
 		free.c\
-		test.c\
 		printing.c\
 		treat_map.c\
 		treat_file.c\
 		player_check.c\
 		treat_file_utils.c
+# test.c
 
 OBJS = $(FILES:%.c=$(OBJ_DIR)/%.o)
 
