@@ -22,17 +22,19 @@ void	init_elem_infos(char *elems[])
 	elems[5] = "C";
 }
 
-int	get_rgb(t_map *map_inf, char *info, int elem, int j)
+int	get_rgb(t_map *map, char *info, int elem)
 {
 	int	*rgb;
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	rgb = NULL;
 	if (elem == 4)
-		rgb = map_inf->f_rgb;
+		rgb = map->f_rgb;
 	else if (elem == 5)
-		rgb = map_inf->c_rgb;
+		rgb = map->c_rgb;
 	while (rgb && j < 3)
 	{
 		rgb[j++] = ft_natoi(info, &i);
@@ -47,35 +49,27 @@ int	get_rgb(t_map *map_inf, char *info, int elem, int j)
 }
 
 /* get the valid elements in the structure */
-static int	get_map_infos(t_map *map_inf, char *info, int elem, int j)
+static int	get_map_infos(t_map *map, char *info, char **elem, int elem_nb)
 {
 	int	len_line;
 
-	len_line = ft_strclen(info, '\n');
-	if (elem < 4 && len_line < 4)
-		return (error("No informations for an elem.\n"), 0);
-	if (elem < 4)
+	if (elem_nb < 4)
+	{
+		len_line = ft_strclen(info, '\n');
+		if (len_line < 4)
+			return (error("No informations for an elem.\n"), 0);
 		len_line = ft_strclen(info + 3, '\n');
-	if (elem == 0)
-		map_inf->no_path = ft_strndup(info + 3, len_line);
-	else if (elem == 1)
-		map_inf->so_path = ft_strndup(info + 3, len_line);
-	else if (elem == 2)
-		map_inf->we_path = ft_strndup(info + 3, len_line);
-	else if (elem == 3)
-		map_inf->ea_path = ft_strndup(info + 3, len_line);
-	else if ((elem == 4 || elem == 5) && !get_rgb(map_inf, info + 2, elem, j))
+		*elem = ft_strndup(info + 3, len_line);
+		if (ft_str_charset(*elem, "\a\b\t\n\v\f "))
+			return (error("Invalid path to texture.\n"), 0);
+	}
+	else if ((elem_nb < 6) && !get_rgb(map, info + 2, elem_nb))
 		return (0);
-	if (ft_str_charset(map_inf->no_path, "\a\b\t\n\v\f ")
-		|| ft_str_charset(map_inf->so_path, "\a\b\t\n\v\f ")
-		|| ft_str_charset(map_inf->we_path, "\a\b\t\n\v\f ")
-		|| ft_str_charset(map_inf->ea_path, "\a\b\t\n\v\f "))
-		return (error("Invalid path to texture.\n"), 0);
 	return (1);
 }
 
 /* check if the elements are valid and get them */
-static int	check_elems(char *file_infos, int *i, char *elems[], t_map *map_inf)
+static int	check_elems(char *file_infos, int *i, char *elems[], t_map *map)
 {
 	int	j;
 	int	count;
@@ -89,8 +83,9 @@ static int	check_elems(char *file_infos, int *i, char *elems[], t_map *map_inf)
 		if (file_infos[*i]
 			&& !ft_strncmp(file_infos + *i, elems[j], ft_strlen(elems[j])))
 		{
-			if (!get_map_infos(map_inf, file_infos + *i, j++, 0))
+			if (!get_map_infos(map, file_infos + *i, get_elem(map, j), j))
 				return (0);
+			j++;
 		}
 		else
 			return (error("Elements aren't in right order.\n"), 0);

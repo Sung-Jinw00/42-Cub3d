@@ -22,7 +22,8 @@ FILES = main.c\
 		printing.c\
 		treat_map.c\
 		treat_file.c\
-		player_check.c
+		player_check.c\
+		treat_file_util.c
 
 OBJS = $(FILES:%.c=$(OBJ_DIR)/%.o)
 
