@@ -43,7 +43,7 @@ int		treat_file(char *map_name, t_map *map_infos);
 char	*treat_map(char *map, int i, int j, t_map *map_datas);
 
 //player
-int	only_one_player(char *map);
+int		only_one_player(char *map);
 
 //print
 int		usage_prompt(void);
