@@ -24,9 +24,13 @@ int	main(int ac, char **av)
 			return (error("file with '.cub' extension needed.\n"), 1);
 		map_infos = (t_map){0};
 		if (treat_file(av[1], &map_infos))
-			return (free_map(&map_infos), 1);
+		{
+			free_map(&map_infos);
+			return (1);
+		}
 		free_map(&map_infos);
+		return (0);
 	}
-	else
-		return (usage_prompt());
+	usage_prompt();
+	return (0);
 }

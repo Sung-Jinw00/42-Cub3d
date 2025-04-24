@@ -42,7 +42,7 @@ int	get_rgb(t_map *map, char *info, int elem)
 			return (error("Invalid RGB color.\n"), 0);
 		i++;
 	}
-	while (info[i] != '\n')
+	while (info[i] && info[i] != '\n')
 		if (ft_isnum(info[i++]))
 			return (error("Too many RGB colors.\n"), 0);
 	return (1);
@@ -56,9 +56,11 @@ static int	get_map_infos(t_map *map, char *info, char **elem, int elem_nb)
 	if (elem_nb < 4)
 	{
 		len_line = ft_strclen(info, '\n');
+		if (ft_strclen(info, '\r'))
+			len_line = ft_strclen(info, '\r');
 		if (len_line < 4)
 			return (error("No informations for an elem.\n"), 0);
-		len_line = ft_strclen(info + 3, '\n');
+		len_line -= 3;
 		*elem = ft_strndup(info + 3, len_line);
 		if (!path_is_valid(*elem))
 			return (0);
@@ -74,11 +76,11 @@ static int	check_elems(char *file_infos, int *i, char *elems[], t_map *map)
 	int	j;
 	int	count;
 
-	count = 6;
 	j = 0;
+	count = 6;
 	while (file_infos[*i] && count)
 	{
-		while (file_infos[*i] && file_infos[*i] == '\n')
+		while (ft_strchr("\n\r", file_infos[*i]))
 			(*i)++;
 		if (file_infos[*i]
 			&& !ft_strncmp(file_infos + *i, elems[j], ft_strlen(elems[j])))
@@ -93,9 +95,9 @@ static int	check_elems(char *file_infos, int *i, char *elems[], t_map *map)
 		while (file_infos[*i] && file_infos[*i] != '\n')
 			(*i)++;
 	}
-	if (count != 0)
-		return (error("Lacking elements for map.\n"), 0);
-	return (1);
+	if (!count)
+		return (1);
+	return (error("Lacking elements for map.\n"), 0);
 }
 
 int	treat_file(char *map_name, t_map *map_infos)
@@ -109,7 +111,7 @@ int	treat_file(char *map_name, t_map *map_infos)
 	file_infos = ft_read_file(map_name);
 	if (!file_infos || !file_infos[0])
 		return (error("Empty file.\n"), 1);
-	else if (!check_elems(file_infos, &i, elems, map_infos))
+	if (!check_elems(file_infos, &i, elems, map_infos))
 		return (free(file_infos), 1);
 	while (file_infos[i] && file_infos[i] != '\n')
 		i++;
@@ -122,7 +124,5 @@ int	treat_file(char *map_name, t_map *map_infos)
 	}
 	map_infos->map = treat_map(file_infos + i, -1, 0, map_infos);
 	free(file_infos);
-	if (!map_infos->map || !map_infos->map_array)
-		return (1);
-	return (0);
+	return (!map_infos->map || !map_infos->map_array);
 }

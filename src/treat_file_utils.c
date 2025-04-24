@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   treat_file_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 20:53:48 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/24 21:32:34 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/24 23:09:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	path_is_valid(char *pathname)
 	if (fd == -1)
 		return (error("Path for elem is invalid\n"), 0);
 	bytes_read = read(fd, test_buffer, sizeof(test_buffer));
+	close(fd);
 	if (bytes_read == -1)
 		return (error("Path for elem is not leading to a file\n"), 0);
 	if (!bytes_read)
