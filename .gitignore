@@ -4,6 +4,6 @@
 .vscode
 *.json
 *.gch
-*.cub
+test.cub
 src/test.c
 cub3d

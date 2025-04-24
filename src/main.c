@@ -25,7 +25,6 @@ int	main(int ac, char **av)
 		map_infos = (t_map){0};
 		if (treat_file(av[1], &map_infos))
 			return (free_map(&map_infos), 1);
-		print_map(&map_infos);
 		free_map(&map_infos);
 	}
 	else
