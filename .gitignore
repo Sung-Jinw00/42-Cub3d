@@ -1,6 +1,7 @@
-.vscode
-*.gch
-*.cub
 *.o
-libft
-mlx
+*.a
+*.sw*
+.vscode/
+*.json
+*.gch
+cub3d

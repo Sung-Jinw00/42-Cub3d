@@ -19,8 +19,6 @@
 # include <unistd.h> // read, write, close
 # include <stdlib.h> // malloc, free, exit
 # include <string.h> // strerror
-# include <X11/xpm.h>
-
 
 # include "libft.h"
 
