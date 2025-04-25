@@ -40,15 +40,16 @@ typedef struct s_map
 int		path_is_valid(char *pathname);
 char	**get_elem(t_map *map, int elem);
 int		treat_file(char *map_name, t_map *map_infos);
-char	*treat_map(char *map, int i, int j, t_map *map_datas);
+char	*treat_map(char *map, int i, t_map *map_datas);
 
 //player
 int		only_one_player(char *map);
 
 //print
 int		usage_prompt(void);
-void	error(char *msg);
+void	ft_error(char *msg);
 
+//debug
 void	print_map(t_map *map);
 
 //free

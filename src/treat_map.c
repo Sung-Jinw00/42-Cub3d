@@ -31,7 +31,7 @@ static char	*formated_map(char **map_array, t_map *map, int *len_strings, int i)
 	free(len_strings);
 	formated_map = malloc(sizeof(char) * (map->h_map * map->w_map + 1));
 	if (!formated_map)
-		return (error("Failed creating formated map.\n"), NULL);
+		return (ft_error("Failed creating formated map.\n"), NULL);
 	i = -1;
 	while (map_array[++i])
 		ft_memcpy(formated_map + (i * map->w_map), map_array[i], map->w_map);
@@ -102,29 +102,29 @@ static int	check_sides(char **map_array, int map_height, int *len_strings)
 	return (1);
 }
 
-char	*treat_map(char *map, int i, int j, t_map *map_datas)
+char	*treat_map(char *map, int i, t_map *map_datas)
 {
 	char	**map_array;
 	int		*len_strings;
 
 	if (!ft_str_isformat(map, "01NSEW \n\r"))
-		return (error("Wrong format used.\n"), NULL);
+		return (ft_error("Wrong format used.\n"), NULL);
 	map_array = ft_split(map, "\n\r");
 	if (!map_array)
-		return (error("Fail splitting map.\n"), NULL);
+		return (ft_error("Failed splitting map.\n"), NULL);
 	map_datas->h_map = ft_count_words(map_array);
 	len_strings = malloc(sizeof(int) * map_datas->h_map);
 	if (!len_strings)
 		return (free_array(&map_array),
-			error("Fail getting len of strings.\n"), NULL);
+			ft_error("Failed getting len of strings.\n"), NULL);
 	while (map_array[++i])
 		len_strings[i] = ft_strlen(map_array[i]);
-	if (!ft_str_isformat(map_array[j++], "1 ")
+	if (!ft_str_isformat(map_array[0], "1 ")
 		|| !ft_str_isformat(map_array[map_datas->h_map - 1], "1 ")
 		|| !check_sides(map_array, map_datas->h_map, len_strings)
 		|| !check_limits(map_array, map_datas->h_map, len_strings))
 		return (free(len_strings), free_array(&map_array),
-			error("Map is invalid.\n"), NULL);
+			ft_error("Invalid map.\n"), NULL);
 	if (!only_one_player(map))
 		return (free(len_strings), free_array(&map_array), NULL);
 	return (formated_map(map_array, map_datas, len_strings, -1));

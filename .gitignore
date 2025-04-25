@@ -5,5 +5,4 @@
 *.json
 *.gch
 *.cub
-src/test.c
 cub3d

@@ -21,7 +21,7 @@ int	main(int ac, char **av)
 	{
 		len_file = ft_strlen(av[1]);
 		if (len_file <= 4 || ft_strcmp(av[1] + (len_file - 4), ".cub"))
-			return (error("file with '.cub' extension needed.\n"), 1);
+			return (ft_error("file with '.cub' extension needed.\n"), 1);
 		map_infos = (t_map){0};
 		if (treat_file(av[1], &map_infos))
 		{

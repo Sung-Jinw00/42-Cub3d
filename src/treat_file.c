@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	init_elem_infos(char *elems[])
+static void	init_elem_infos(char *elems[])
 {
 	elems[0] = "NO";
 	elems[1] = "SO";
@@ -22,7 +22,7 @@ void	init_elem_infos(char *elems[])
 	elems[5] = "C";
 }
 
-int	get_rgb(t_map *map, char *info, int elem)
+static int	get_rgb(t_map *map, char *info, int elem)
 {
 	int	*rgb;
 	int	i;
@@ -39,12 +39,12 @@ int	get_rgb(t_map *map, char *info, int elem)
 	{
 		rgb[j++] = ft_natoi(info, &i);
 		if (!ft_isnum(info[i - 1]) || rgb[j - 1] > 255 || rgb[j - 1] < 0)
-			return (error("Invalid RGB color.\n"), 0);
+			return (ft_error("Invalid RGB color.\n"), 0);
 		i++;
 	}
 	while (info[i] && info[i] != '\n')
 		if (ft_isnum(info[i++]))
-			return (error("Too many RGB colors.\n"), 0);
+			return (ft_error("Too many RGB colors.\n"), 0);
 	return (1);
 }
 
@@ -59,7 +59,7 @@ static int	get_map_infos(t_map *map, char *info, char **elem, int elem_nb)
 		if (ft_strclen(info, '\r'))
 			len_line = ft_strclen(info, '\r');
 		if (len_line < 4)
-			return (error("No informations for an elem.\n"), 0);
+			return (ft_error("No informations for an elem.\n"), 0);
 		len_line -= 3;
 		*elem = ft_strndup(info + 3, len_line);
 		if (!path_is_valid(*elem))
@@ -90,14 +90,14 @@ static int	check_elems(char *file_infos, int *i, char *elems[], t_map *map)
 			j++;
 		}
 		else
-			return (error("Elements aren't in right order.\n"), 0);
+			return (ft_error("Elements aren't in right order.\n"), 0);
 		count--;
 		while (file_infos[*i] && file_infos[*i] != '\n')
 			(*i)++;
 	}
 	if (!count)
 		return (1);
-	return (error("Lacking elements for map.\n"), 0);
+	return (ft_error("Lacking elements for map.\n"), 0);
 }
 
 int	treat_file(char *map_name, t_map *map_infos)
@@ -110,7 +110,7 @@ int	treat_file(char *map_name, t_map *map_infos)
 	init_elem_infos(elems);
 	file_infos = ft_read_file(map_name);
 	if (!file_infos || !file_infos[0])
-		return (error("Empty file.\n"), 1);
+		return (ft_error("Empty file.\n"), 1);
 	if (!check_elems(file_infos, &i, elems, map_infos))
 		return (free(file_infos), 1);
 	while (file_infos[i] && file_infos[i] != '\n')
@@ -120,9 +120,9 @@ int	treat_file(char *map_name, t_map *map_infos)
 	if (!file_infos[i])
 	{
 		free(file_infos);
-		return (error("No map given.\n"), 1);
+		return (ft_error("No map given.\n"), 1);
 	}
-	map_infos->map = treat_map(file_infos + i, -1, 0, map_infos);
+	map_infos->map = treat_map(file_infos + i, -1, map_infos);
 	free(file_infos);
 	return (!map_infos->map || !map_infos->map_array);
 }

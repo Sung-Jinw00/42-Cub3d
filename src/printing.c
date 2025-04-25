@@ -26,7 +26,7 @@ int	usage_prompt(void)
 	return (1);
 }
 
-void	error(char *msg)
+void	ft_error(char *msg)
 {
 	write(2, "Error\n", 6);
 	ft_write(2, msg);

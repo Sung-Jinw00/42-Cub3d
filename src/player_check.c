@@ -25,13 +25,13 @@ int	only_one_player(char *map)
 			nb_players++;
 		if (nb_players > 1)
 		{
-			error("More than one player.\n");
+			ft_error("More than one player.\n");
 			return (0);
 		}
 		i++;
 	}
 	if (nb_players == 1)
 		return (1);
-	error("No player on the map.\n");
+	ft_error("No player on the map.\n");
 	return (0);
 }
