@@ -32,5 +32,5 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	usage_prompt();
-	return (0);
+	return (1);
 }
