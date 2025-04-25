@@ -1,16 +1,22 @@
 NAME = cub3d
 
-INCLUDE = include
+INCLUDE = includes
 SRC_DIR = src
 OBJ_DIR = objs
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
+LIBFT_INCLUDES = $(LIBFT_DIR)/$(INCLUDE)
+
+MLX_DIR = mlx
+MLX = $(MLX_DIR)/libmlx_Linux.a
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Werror -g
+MLX_FLAGS = -lX11 -lXext -lm
 
-FILES = main.c
+FILES = main.c \
+		store_image.c
 
 OBJS = $(FILES:%.c=$(OBJ_DIR)/%.o)
 
@@ -23,9 +29,9 @@ RESET = "\033[0m"
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
 	@echo $(CYAN)"Compilation de Cub3D..."$(RESET)
-	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) -I $(INCLUDE) -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) $(MLX) -I $(INCLUDE) -I $(MLX_DIR) -I $(LIBFT_INCLUDES) -o $(NAME) $(MLX_FLAGS)
 	@echo $(GREEN)"Exécutable $(NAME) créé !"$(RESET)
 
 $(LIBFT):
@@ -33,9 +39,14 @@ $(LIBFT):
 	@make -C $(LIBFT_DIR) > /dev/null
 	@echo "\nLibft compilation done!"
 
+$(MLX):
+	@echo -n "Compiling libmlx..."
+	@make -C $(MLX_DIR) > /dev/null
+	@echo "\nLibmlx compilation done!"
+
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(FLAGS) -I $(INCLUDE) -c $< -o $@
+	@$(CC) $(FLAGS) -I $(INCLUDE) -I $(LIBFT_INCLUDES) -I $(MLX_DIR) -c $< -o $@
 
 clean:
 	@echo $(CYAN)"Suppression des fichiers objets..."$(RESET)

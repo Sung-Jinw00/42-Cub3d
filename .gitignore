@@ -1,6 +1,7 @@
-**/*.o
-**/*.a
-**/*.sw*
+*.o
+*.a
+*.sw*
 .vscode/
-**/*.json
+*.json
+*.gch
 cub3d

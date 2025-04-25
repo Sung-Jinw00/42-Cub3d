@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/19 20:45:18 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:34:47 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,9 @@
 # include <string.h> // strerror
 
 # include "libft.h"
+# include "mlx.h"
+# include "mlx_int.h"
+
+int	**store_image(char *pathname, void *mlx_ptr);
 
 #endif
