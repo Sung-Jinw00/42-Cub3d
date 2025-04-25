@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   player_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 16:46:30 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 20:56:55 by marvin           ###   ########.fr       */
+/*   Created: 2025/04/23 16:40:40 by marvin            #+#    #+#             */
+/*   Updated: 2025/04/23 16:40:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int ac, char **av)
+int	only_one_player(char *map)
 {
-	int		len_file;
-	t_map	map_infos;
+	int		i;
+	size_t	nb_players;
 
-	if (ac == 2)
+	i = 0;
+	nb_players = 0;
+	while (map[i])
 	{
-		len_file = ft_strlen(av[1]);
-		if (len_file <= 4 || ft_strcmp(av[1] + (len_file - 4), ".cub"))
-			return (ft_error("file with '.cub' extension needed.\n"), 1);
-		map_infos = (t_map){0};
-		if (treat_file(av[1], &map_infos))
+		if (ft_strchr("NSEW", map[i]))
+			nb_players++;
+		if (nb_players > 1)
 		{
-			free_map(&map_infos);
-			return (1);
+			ft_error("More than one player.\n");
+			return (0);
 		}
-		free_map(&map_infos);
-		return (0);
+		i++;
 	}
-	usage_prompt();
-	return (1);
+	if (nb_players == 1)
+		return (1);
+	ft_error("No player on the map.\n");
+	return (0);
 }
