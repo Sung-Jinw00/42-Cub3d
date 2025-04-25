@@ -18,6 +18,8 @@ MLX_FLAGS = -lX11 -lXext -lm
 
 FILES = main.c\
 		free.c\
+		set_mlx.c\
+		controls.c\
 		printing.c\
 		treat_map.c\
 		treat_file.c\

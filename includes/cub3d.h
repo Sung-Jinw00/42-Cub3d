@@ -19,8 +19,39 @@
 # include <unistd.h> // read, write, close
 # include <stdlib.h> // malloc, free, exit
 # include <string.h> // strerror
+# include <X11/X.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
 
 # include "libft.h"
+# include "mlx.h"
+
+// Mouse defines
+# define LEFT_CLICK 1
+# define SCROLL_CLICK 2
+# define RIGHT_CLICK 3
+# define SCROLL_UP 4
+# define SCROLL_DOWN 5
+
+//mlx window settings
+# define MLX_WIDTH 1400
+# define MLX_HEIGHT 1000
+
+typedef struct s_window
+{
+	char	*addr;
+	void	*img_id;
+	int		endian;
+	int		line_length;
+	int		bits_per_pixel;
+}	t_window;
+
+typedef struct s_mlx
+{
+	void		*init;
+	void		*window;
+	t_window	img;
+}	t_mlx;
 
 typedef struct s_map
 {
@@ -34,6 +65,7 @@ typedef struct s_map
 	char	**map_array;
 	int		w_map;
 	int		h_map;
+	t_mlx	mlx;
 }	t_map;
 
 //parse and treat file
@@ -48,6 +80,12 @@ int		only_one_player(char *map);
 //print
 int		usage_prompt(void);
 void	ft_error(char *msg);
+
+//mlx
+int		set_mlx(t_mlx *mlx, char *win_title);
+
+//controls
+void	mlx_hooks(t_map *map);
 
 //debug
 void	print_map(t_map *map);

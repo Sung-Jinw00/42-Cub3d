@@ -19,15 +19,18 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
+		map_infos = (t_map){0};
 		len_file = ft_strlen(av[1]);
 		if (len_file <= 4 || ft_strcmp(av[1] + (len_file - 4), ".cub"))
 			return (ft_error("file with '.cub' extension needed.\n"), 1);
 		map_infos = (t_map){0};
-		if (treat_file(av[1], &map_infos))
+		if (treat_file(av[1], &map_infos) || set_mlx(&map_infos.mlx, "Cube3D"))
 		{
 			free_map(&map_infos);
 			return (1);
 		}
+		mlx_hooks(&map_infos);
+		mlx_loop(map_infos.mlx.init);
 		free_map(&map_infos);
 		return (0);
 	}

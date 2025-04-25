@@ -26,4 +26,13 @@ void	free_map(t_map *map)
 		ft_free(&map->map);
 	if (map->map_array)
 		free_array(&map->map_array);
+	if (map->mlx.img.img_id)
+		mlx_destroy_image(map->mlx.init, map->mlx.img.img_id);
+	if (map->mlx.window)
+		mlx_destroy_window(map->mlx.init, map->mlx.window);
+	if (map->mlx.init)
+	{
+		mlx_destroy_display(map->mlx.init);
+		free(map->mlx.init);
+	}
 }
