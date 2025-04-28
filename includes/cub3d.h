@@ -27,22 +27,22 @@
 
 //game settings
 # ifndef SPEED
-#  define SPEED	(1.0 / 15.0)
+#  define SPEED			(1.0 / 15.0)
 # endif
 
 //window settings
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH	1400
+#  define WIN_WIDTH		1400
 # endif
 # ifndef WIN_HEIGHT
 #  define WIN_HEIGHT	1000
 # endif
 
 // Mouse defines
-# define LEFT_CLICK	1
+# define LEFT_CLICK		1
 # define SCROLL_CLICK	2
 # define RIGHT_CLICK	3
-# define SCROLL_UP	4
+# define SCROLL_UP		4
 # define SCROLL_DOWN	5
 
 typedef struct s_player
