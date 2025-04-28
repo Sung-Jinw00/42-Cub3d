@@ -21,14 +21,13 @@
 # include <string.h> // strerror
 # include <X11/X.h>
 # include <X11/keysym.h>
-# include <X11/X.h>
 
 # include "libft.h"
 # include "mlx.h"
 
 //game settings
-# ifndef MOVE_UNIT
-#  define MOVE_UNIT 1.0 / 1.0
+# ifndef SPEED
+#  define SPEED 1.0 / 15.0
 # endif
 
 //window settings
@@ -60,7 +59,8 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
-	double	move_unit;
+	double	rotation;
+	double	mvt_speed;
 }	t_player;
 
 typedef struct s_window

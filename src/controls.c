@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 17:02:01 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/28 18:48:31 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/28 19:09:09 by locagnio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	deal_key(int key, t_map *map)
 		;
 	else if (key == XK_Right)
 		;
-	else if ((key == XK_w || key == XK_a || key == XK_s || key == XK_d)
+	else if ((key == 'w' || key == 'a' || key == 's' || key == 'd')
 		&& is_valid_move(map->map_array, map->player, key))
 		actualise_player_pos(&map->player, key);
 	return (0);
@@ -34,7 +34,7 @@ static int	deal_key(int key, t_map *map)
 
 int	loop(t_map *map)
 {
-	return (printf("x = %.40f, y = %.40f\n", map->player.x, map->player.y));
+	return (0);
 }
 
 void	mlx_hooks(t_map *map)

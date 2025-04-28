@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:40:40 by marvin            #+#    #+#             */
-/*   Updated: 2025/04/28 18:54:47 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/28 19:06:34 by locagnio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	only_one_player(t_map *map)
 	if (nb_players == 1)
 	{
 		get_player_infos(map);
-		map->player.move_unit = 1.0 / 15.0;
+		map->player.mvt_speed = SPEED;
 		return (1);
 	}
 	ft_error("No player on the map.\n");
@@ -62,25 +62,25 @@ int	only_one_player(t_map *map)
 
 int	is_valid_move(char **map_array, t_player p, int key)
 {
-	if (key == XK_w)
-		return (map_array[(int)(p.y - p.move_unit)][(int)p.x] != '1');
-	else if (key == XK_a)
-		return (map_array[(int)p.y][(int)(p.x - p.move_unit)] != '1');
-	else if (key == XK_s)
-		return (map_array[(int)(p.y + p.move_unit)][(int)p.x] != '1');
-	else if (key == XK_d)
-		return (map_array[(int)p.y][(int)(p.x + p.move_unit)] != '1');
+	if (key == 'w')
+		return (map_array[(int)(p.y - p.mvt_speed)][(int)p.x] != '1');
+	else if (key == 'a')
+		return (map_array[(int)p.y][(int)(p.x - p.mvt_speed)] != '1');
+	else if (key == 's')
+		return (map_array[(int)(p.y + p.mvt_speed)][(int)p.x] != '1');
+	else if (key == 'd')
+		return (map_array[(int)p.y][(int)(p.x + p.mvt_speed)] != '1');
 	return (0);
 }
 
 void	actualise_player_pos(t_player *p, int key)
 {
-	if (key == XK_w)
-		p->y -= p->move_unit;
-	else if (key == XK_a)
-		p->x -= p->move_unit;
-	else if (key == XK_s)
-		p->y += p->move_unit;
-	else if (key == XK_d)
-		p->x += p->move_unit;
+	if (key == 'w')
+		p->y -= p->mvt_speed;
+	else if (key == 'a')
+		p->x -= p->mvt_speed;
+	else if (key == 's')
+		p->y += p->mvt_speed;
+	else if (key == 'd')
+		p->x += p->mvt_speed;
 }
