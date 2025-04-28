@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 17:02:01 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/28 19:09:09 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/28 19:21:00 by locagnio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	deal_key(int key, t_map *map)
 		;
 	else if (key == XK_Right)
 		;
-	else if ((key == 'w' || key == 'a' || key == 's' || key == 'd')
+	else if (ft_strchr("wasd", key)
 		&& is_valid_move(map->map_array, map->player, key))
 		actualise_player_pos(&map->player, key);
 	return (0);
