@@ -1,7 +1,14 @@
 *.o
 *.a
 *.sw*
+<<<<<<< HEAD
 .vscode/
 *.json
 *.gch
+=======
+.vscode
+*.json
+*.gch
+*.cub
+>>>>>>> main
 cub3d

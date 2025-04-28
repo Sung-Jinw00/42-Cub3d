@@ -1,3 +1,5 @@
+MAKEFLAGS += -s
+
 NAME = cub3d
 
 INCLUDE = includes
@@ -6,58 +8,65 @@ OBJ_DIR = objs
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
-LIBFT_INCLUDES = $(LIBFT_DIR)/$(INCLUDE)
 
 MLX_DIR = mlx
 MLX = $(MLX_DIR)/libmlx_Linux.a
 
 CC = cc
-FLAGS = -Wall -Werror -g
+FLAGS = -Wall -Wextra -O3 -g
 MLX_FLAGS = -lX11 -lXext -lm
 
 FILES = main.c \
-		store_image.c
+		free.c \
+		printing.c \
+		treat_map.c \
+		treat_file.c \
+		player_check.c \
+		treat_file_utils.c \
+		store_image.c \
+		raycast.c
+# debug.c
 
 OBJS = $(FILES:%.c=$(OBJ_DIR)/%.o)
 
 RM = rm -f
 
 CYAN = "\033[36m"
-RED	= "\033[31m"
+RED    = "\033[31m"
 GREEN = "\033[32m"
 RESET = "\033[0m"
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-	@echo $(CYAN)"Compilation de Cub3D..."$(RESET)
-	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) $(MLX) -I $(INCLUDE) -I $(MLX_DIR) -I $(LIBFT_INCLUDES) -o $(NAME) $(MLX_FLAGS)
-	@echo $(GREEN)"Exécutable $(NAME) créé !"$(RESET)
+	@echo $(CYAN)"Compiling Cub3D..."$(RESET)
+	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) $(MLX) -I $(INCLUDE) -I $(MLX_DIR) -I $(LIBFT_DIR) -I $(LIBFT_DIR)/includes -o $(NAME) $(MLX_FLAGS)
+	@echo $(GREEN)"$(NAME) executable created !"$(RESET)
 
 $(LIBFT):
-	@echo -n "Compiling libft..."
+	@echo -n $(CYAN)"Compiling libft..."$(RESET)
 	@make -C $(LIBFT_DIR) > /dev/null
-	@echo "\nLibft compilation done!"
+	@echo $(GREEN)"\nLibft ready !"$(RESET)
 
 $(MLX):
-	@echo -n "Compiling libmlx..."
+	@echo -n $(CYAN)"Compiling libmlx..."$(RESET)
 	@make -C $(MLX_DIR) > /dev/null
-	@echo "\nLibmlx compilation done!"
+	@echo $(GREEN)"\nLibmlx ready !"$(RESET)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(FLAGS) -I $(INCLUDE) -I $(LIBFT_INCLUDES) -I $(MLX_DIR) -c $< -o $@
+	@$(CC) $(FLAGS) -I $(INCLUDE) -I $(LIBFT_DIR) -I $(LIBFT_DIR)/includes -I $(MLX_DIR) -c $< -o $@
 
 clean:
-	@echo $(CYAN)"Suppression des fichiers objets..."$(RESET)
+	@echo $(GREEN)"Objets files cleared !"$(RESET)
 	@rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	@echo "Suppression de l'exécutable..."
-	@$(RM) $(NAME)
-	@echo "Suppression de libft..."
+	@echo $(GREEN)"Libft cleared !"$(RESET)
 	@make -C $(LIBFT_DIR) fclean > /dev/null
+	@echo $(GREEN)"$(NAME) cleared !"$(RESET)
+	@$(RM) $(NAME)
 
 re: fclean all
 
