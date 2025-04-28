@@ -23,6 +23,8 @@ int	usage_prompt(void)
 	ft_write(2, "- Spaces : You can put spaces to change the shape of the ");
 	ft_write(2, "map, if there's spaces inside the\n\t\t   map, they should ");
 	ft_write(2, "be surrounded with walls to be valid.\n\n");
+	ft_write(2, "For performances and seg fault reasons, the movement speed");
+	ft_write(2, " won't exceed 1.\n\n");
 	return (1);
 }
 

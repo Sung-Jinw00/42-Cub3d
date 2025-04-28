@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 17:02:01 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/25 17:48:48 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/28 18:48:31 by locagnio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,22 @@ static int	deal_key(int key, t_map *map)
 		;
 	else if (key == XK_Right)
 		;
-	else if (key == XK_w)
-		;
-	else if (key == XK_a)
-		;
-	else if (key == XK_s)
-		;
-	else if (key == XK_d)
-		;
+	else if ((key == XK_w || key == XK_a || key == XK_s || key == XK_d)
+		&& is_valid_move(map->map_array, map->player, key))
+		actualise_player_pos(&map->player, key);
 	return (0);
+}
+
+int	loop(t_map *map)
+{
+	return (printf("x = %.40f, y = %.40f\n", map->player.x, map->player.y));
 }
 
 void	mlx_hooks(t_map *map)
 {
 	mlx_hook(map->mlx.window, DestroyNotify, KeyReleaseMask, quit, map);
 	mlx_hook(map->mlx.window, KeyPress, KeyPressMask, deal_key, map);
+	mlx_loop_hook(map->mlx.init, loop, map);
 }
 
 /* for bonus */

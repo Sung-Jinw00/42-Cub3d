@@ -122,7 +122,8 @@ int	treat_file(char *map_name, t_map *map_infos)
 		free(file_infos);
 		return (ft_error("No map given.\n"), 1);
 	}
-	map_infos->map = treat_map(file_infos + i, -1, map_infos);
+	if (treat_map(file_infos + i, -1, map_infos))
+		return (1);
 	free(file_infos);
 	return (!map_infos->map || !map_infos->map_array);
 }

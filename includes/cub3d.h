@@ -26,16 +26,42 @@
 # include "libft.h"
 # include "mlx.h"
 
-// Mouse defines
-# define LEFT_CLICK 1
-# define SCROLL_CLICK 2
-# define RIGHT_CLICK 3
-# define SCROLL_UP 4
-# define SCROLL_DOWN 5
+//game settings
+# ifndef MOVE_UNIT
+#  define MOVE_UNIT 1.0 / 1.0
+# endif
 
-//mlx window settings
-# define MLX_WIDTH 1400
-# define MLX_HEIGHT 1000
+//window settings
+# ifndef MLX_WIDTH
+# 	define MLX_WIDTH 1400
+# endif
+# ifndef MLX_HEIGHT
+# 	define MLX_HEIGHT 1000
+# endif
+
+// Mouse defines
+# ifndef LEFT_CLICK
+# 	define LEFT_CLICK 1
+# endif
+# ifndef SCROLL_CLICK
+# 	define SCROLL_CLICK 2
+# endif
+# ifndef RIGHT_CLICK
+# 	define RIGHT_CLICK 3
+# endif
+# ifndef SCROLL_UP
+# 	define SCROLL_UP 4
+# endif
+# ifndef SCROLL_DOWN
+# 	define SCROLL_DOWN 5
+# endif
+
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	move_unit;
+}	t_player;
 
 typedef struct s_window
 {
@@ -55,27 +81,30 @@ typedef struct s_mlx
 
 typedef struct s_map
 {
-	char	*no_path;
-	char	*so_path;
-	char	*we_path;
-	char	*ea_path;
-	int		f_rgb[3];
-	int		c_rgb[3];
-	char	*map;
-	char	**map_array;
-	int		w_map;
-	int		h_map;
-	t_mlx	mlx;
+	char		*no_path;
+	char		*so_path;
+	char		*we_path;
+	char		*ea_path;
+	int			f_rgb[3];
+	int			c_rgb[3];
+	char		*map;
+	char		**map_array;
+	int			w_map;
+	int			h_map;
+	t_mlx		mlx;
+	t_player	player;
 }	t_map;
 
 //parse and treat file
 int		path_is_valid(char *pathname);
 char	**get_elem(t_map *map, int elem);
 int		treat_file(char *map_name, t_map *map_infos);
-char	*treat_map(char *map, int i, t_map *map_datas);
+int		treat_map(char *map, int i, t_map *map_datas);
 
 //player
-int		only_one_player(char *map);
+int		only_one_player(t_map *map);
+void	actualise_player_pos(t_player *p, int key);
+int		is_valid_move(char **map_array, t_player p, int key);
 
 //print
 int		usage_prompt(void);
