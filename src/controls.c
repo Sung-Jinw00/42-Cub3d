@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 17:02:01 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/28 19:21:00 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/29 01:48:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	loop(t_map *map)
 	return (0);
 }
 
-void	mlx_hooks(t_map *map)
+void	init_hooks(t_map *map)
 {
 	mlx_hook(map->mlx.window, DestroyNotify, KeyReleaseMask, quit, map);
 	mlx_hook(map->mlx.window, KeyPress, KeyPressMask, deal_key, map);

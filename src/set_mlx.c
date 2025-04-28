@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_mlx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 17:12:35 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/25 17:47:06 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/29 01:51:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	set_mlx(t_mlx *mlx, char *win_title)
 		ft_error("Cannot initiate mlx.\n");
 		return (1);
 	}
-	mlx->window = mlx_new_window(mlx->init, MLX_WIDTH, MLX_HEIGHT, win_title);
-	mlx->img.img_id = mlx_new_image(mlx->init, MLX_WIDTH, MLX_HEIGHT);
+	mlx->window = mlx_new_window(mlx->init, WIN_WIDTH, WIN_HEIGHT, win_title);
+	mlx->img.img_id = mlx_new_image(mlx->init, WIN_WIDTH, WIN_HEIGHT);
 	if (!mlx->window || !mlx->img.img_id)
 	{
 		mlx_destroy_image(mlx->init, mlx->img.img_id);

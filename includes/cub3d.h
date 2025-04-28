@@ -22,8 +22,8 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 
-# include "libft.h"
 # include "mlx.h"
+# include "libft.h"
 
 //game settings
 # ifndef SPEED
@@ -31,29 +31,19 @@
 # endif
 
 //window settings
-# ifndef MLX_WIDTH
-# 	define MLX_WIDTH 1400
+# ifndef WIN_WIDTH
+# 	define WIN_WIDTH 1400
 # endif
-# ifndef MLX_HEIGHT
-# 	define MLX_HEIGHT 1000
+# ifndef WIN_HEIGHT
+# 	define WIN_HEIGHT 1000
 # endif
 
 // Mouse defines
-# ifndef LEFT_CLICK
 # 	define LEFT_CLICK 1
-# endif
-# ifndef SCROLL_CLICK
 # 	define SCROLL_CLICK 2
-# endif
-# ifndef RIGHT_CLICK
 # 	define RIGHT_CLICK 3
-# endif
-# ifndef SCROLL_UP
 # 	define SCROLL_UP 4
-# endif
-# ifndef SCROLL_DOWN
 # 	define SCROLL_DOWN 5
-# endif
 
 typedef struct s_player
 {
@@ -79,6 +69,12 @@ typedef struct s_mlx
 	t_window	img;
 }	t_mlx;
 
+typedef struct s_game
+{
+	t_mlx		mlx;
+	t_player	player;
+}	t_game;
+
 typedef struct s_map
 {
 	char		*no_path;
@@ -92,7 +88,7 @@ typedef struct s_map
 	int			w_map;
 	int			h_map;
 	t_mlx		mlx;
-	t_player	player;
+	t_game		game;
 }	t_map;
 
 //parse and treat file
@@ -114,7 +110,7 @@ void	ft_error(char *msg);
 int		set_mlx(t_mlx *mlx, char *win_title);
 
 //controls
-void	mlx_hooks(t_map *map);
+void	init_hooks(t_map *map);
 
 //debug
 void	print_map(t_map *map);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:46:30 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/28 15:15:32 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/29 01:48:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int ac, char **av)
 			free_map(&map_infos);
 			return (1);
 		}
-		mlx_hooks(&map_infos);
+		init_hooks(&map_infos);
 		mlx_loop(map_infos.mlx.init);
 		free_map(&map_infos);
 		return (0);
