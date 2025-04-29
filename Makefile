@@ -18,10 +18,12 @@ MLX_FLAGS = -lX11 -lXext -lm
 
 FILES = main.c\
 		free.c\
+		player.c\
+		set_mlx.c\
+		controls.c\
 		printing.c\
 		treat_map.c\
 		treat_file.c\
-		player_check.c\
 		treat_file_utils.c
 # debug.c
 

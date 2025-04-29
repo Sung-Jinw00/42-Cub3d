@@ -100,7 +100,7 @@ static int	check_elems(char *file_infos, int *i, char *elems[], t_map *map)
 	return (ft_error("Lacking elements for map.\n"), 0);
 }
 
-int	treat_file(char *map_name, t_map *map_infos)
+int	treat_file(char *map_name, t_game *game)
 {
 	char	*file_infos;
 	char	*elems[6];
@@ -111,7 +111,7 @@ int	treat_file(char *map_name, t_map *map_infos)
 	file_infos = ft_read_file(map_name);
 	if (!file_infos || !file_infos[0])
 		return (ft_error("Empty file.\n"), 1);
-	if (!check_elems(file_infos, &i, elems, map_infos))
+	if (!check_elems(file_infos, &i, elems, &game->map))
 		return (free(file_infos), 1);
 	while (file_infos[i] && file_infos[i] != '\n')
 		i++;
@@ -122,7 +122,8 @@ int	treat_file(char *map_name, t_map *map_infos)
 		free(file_infos);
 		return (ft_error("No map given.\n"), 1);
 	}
-	map_infos->map = treat_map(file_infos + i, -1, map_infos);
+	if (treat_map(file_infos + i, -1, game))
+		return (1);
 	free(file_infos);
-	return (!map_infos->map || !map_infos->map_array);
+	return (!game->map.map || !game->map.map_array);
 }
