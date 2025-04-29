@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 17:02:01 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/29 17:24:21 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/29 19:09:12 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,35 @@ static int	quit(t_game *game)
 
 static int	deal_key(int key, t_game *game)
 {
+	double	temp[2];
+
 	if (key == XK_Escape)
 		quit(game);
-	else if (key == XK_Left)
-		;
 	else if (key == XK_Right)
-		;
+	{
+		temp[0] = game->player.directions[0];
+		temp[1] = game->player.directions[1];
+		game->player.directions[0] = temp[0] * cos(0.05) - temp[1] * sin(0.05);
+		game->player.directions[1] = temp[0] * sin(0.05) + temp[1] * cos(0.05);
+		temp[0] = game->player.plane[0];
+		temp[1] = game->player.plane[1];
+		game->player.plane[0] = temp[0] * cos(0.05) - temp[1] * sin(0.05);
+		game->player.plane[1] = temp[0] * sin(0.05) + temp[1] * cos(0.05);
+	}
+	else if (key == XK_Left)
+	{
+		temp[0] = game->player.directions[0];
+		temp[1] = game->player.directions[1];
+		game->player.directions[0] = temp[0] * cos(-0.05) - temp[1] * sin(-0.05);
+		game->player.directions[1] = temp[0] * sin(-0.05) + temp[1] * cos(-0.05);
+		temp[0] = game->player.plane[0];
+		temp[1] = game->player.plane[1];
+		game->player.plane[0] = temp[0] * cos(-0.05) - temp[1] * sin(-0.05);
+		game->player.plane[1] = temp[0] * sin(-0.05) + temp[1] * cos(-0.05);
+	}
 	else if (ft_strchr("wasd", key)
 		&& is_valid_move(game->map.map_array, game->player, key))
-	{
 		actualise_player_pos(&game->player, key);
-		printf("Y = %f\n", game->player.y);
-	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:40:40 by marvin            #+#    #+#             */
-/*   Updated: 2025/04/29 18:03:09 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:38:49 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,20 @@
 
 static void	init_camera(t_game *game, char dir)
 {
-	(void)dir;
-	game->player.plane[0] = 0.66;
-	game->player.plane[1] = 0;
-	game->player.directions[0] = 0;
-	game->player.directions[1] = -1;
+	if (dir == 'W' || dir == 'E')
+	{
+		game->player.directions[0] = 1 - (2 * (dir == 'W'));
+		game->player.directions[1] = 0;
+		game->player.plane[0] = 0;
+		game->player.plane[1] = 0.66 - (2 * (dir == 'W'));
+	}
+	else
+	{
+		game->player.directions[0] = 0;
+		game->player.directions[1] = 1 - (2 * (dir == 'N'));
+		game->player.plane[0] = 0.66 - (2 * (dir == 'S'));
+		game->player.plane[1] = 0;
+	}
 }
 
 static void	get_player_infos(t_game *game)
