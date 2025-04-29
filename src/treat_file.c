@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 20:57:11 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/29 17:11:06 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	get_rgb(t_map *map, char *info, int elem)
 	}
 	while (info[i] && info[i] != '\n')
 		if (ft_isnum(info[i++]))
-			return (ft_error("Too many RGB colors.\n"), 0);
+			return (ft_error("Too many RGB colors.\n"), 1);
 	return (1);
 }
 
@@ -56,8 +56,8 @@ static int	get_map_infos(t_map *map, char *info, char **elem, int elem_nb)
 	if (elem_nb < 4)
 	{
 		len_line = ft_strclen(info, '\n');
-		if (ft_strclen(info, '\r'))
-			len_line = ft_strclen(info, '\r');
+		/*if (ft_strclen(info, '\r'))
+			len_line = ft_strclen(info, '\r');*/
 		if (len_line < 4)
 			return (ft_error("No informations for an elem.\n"), 0);
 		len_line -= 3;
@@ -100,7 +100,7 @@ static int	check_elems(char *file_infos, int *i, char *elems[], t_map *map)
 	return (ft_error("Lacking elements for map.\n"), 0);
 }
 
-int	treat_file(char *map_name, t_map *map_infos)
+int	treat_file(char *map_name, t_game *game)
 {
 	char	*file_infos;
 	char	*elems[6];
@@ -111,7 +111,7 @@ int	treat_file(char *map_name, t_map *map_infos)
 	file_infos = ft_read_file(map_name);
 	if (!file_infos || !file_infos[0])
 		return (ft_error("Empty file.\n"), 1);
-	if (!check_elems(file_infos, &i, elems, map_infos))
+	if (!check_elems(file_infos, &i, elems, &game->map))
 		return (free(file_infos), 1);
 	while (file_infos[i] && file_infos[i] != '\n')
 		i++;
@@ -122,7 +122,8 @@ int	treat_file(char *map_name, t_map *map_infos)
 		free(file_infos);
 		return (ft_error("No map given.\n"), 1);
 	}
-	map_infos->map = treat_map(file_infos + i, -1, map_infos);
+	if (treat_map(file_infos + i, -1, game))
+		return (1);
 	free(file_infos);
-	return (!map_infos->map || !map_infos->map_array);
+	return (!game->map.map || !game->map.map_array);
 }

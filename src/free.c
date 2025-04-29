@@ -6,11 +6,24 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:43:42 by marvin            #+#    #+#             */
-/*   Updated: 2025/04/23 16:43:42 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/29 16:53:23 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	free_mlx(t_mlx *mlx)
+{
+	if (mlx->img)
+		mlx_destroy_image(mlx->init, mlx->img);
+	if (mlx->window)
+		mlx_destroy_window(mlx->init, mlx->window);
+	if (mlx->init)
+	{
+		mlx_destroy_display(mlx->init);
+		free(mlx->init);
+	}
+}
 
 void	free_map(t_map *map)
 {
@@ -26,4 +39,10 @@ void	free_map(t_map *map)
 		ft_free(&map->map);
 	if (map->map_array)
 		free_array(&map->map_array);
+}
+
+void	free_game(t_game *game)
+{
+	free_map(&game->map);
+	free_mlx(&game->mlx);
 }

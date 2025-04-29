@@ -16,12 +16,14 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror -g
 MLX_FLAGS = -lX11 -lXext -lm
 
-FILES = main.c \
-		free.c \
-		printing.c \
-		treat_map.c \
-		treat_file.c \
-		player_check.c \
+FILES = main.c\
+		free.c\
+		player.c\
+		set_mlx.c\
+		controls.c\
+		printing.c\
+		treat_map.c\
+		treat_file.c\
 		treat_file_utils.c \
 		store_image.c \
 		display_utils.c \
