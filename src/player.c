@@ -6,42 +6,43 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:40:40 by marvin            #+#    #+#             */
-/*   Updated: 2025/04/28 19:06:34 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:21:40 by locagnio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	get_player_infos(t_map *map)
+static void	get_player_infos(t_game *game)
 {
 	int	y;
 	int	x;
 
 	y = 0;
-	while (!ft_strchr(map->map_array[y], 'N')
-		&& !ft_strchr(map->map_array[y], 'S')
-		&& !ft_strchr(map->map_array[y], 'E')
-		&& !ft_strchr(map->map_array[y], 'W'))
+	while (!ft_strchr(game->map.map_array[y], 'N')
+		&& !ft_strchr(game->map.map_array[y], 'S')
+		&& !ft_strchr(game->map.map_array[y], 'E')
+		&& !ft_strchr(game->map.map_array[y], 'W'))
 		y++;
-	map->player.y = y;
+	game->player.y = y;
 	x = 0;
-	while (!ft_strchr("NSEW", map->map_array[y][x]))
+	while (!ft_strchr("NSEW", game->map.map_array[y][x]))
 		x++;
-	map->player.x = x;
-	map->map_array[(int)map->player.y][(int)map->player.x] = '0';
-	map->map[(int)((map->player.y * map->w_map) + map->player.x)] = '0';
+	game->player.x = x;
+	game->map.map_array[(int)game->player.y][(int)game->player.x] = '0';
+	game->map.map[(int)((game->player.y * game->map.w_map)
+			+ game->player.x)] = '0';
 }
 
-int	only_one_player(t_map *map)
+int	only_one_player(t_game *game)
 {
 	int		i;
 	size_t	nb_players;
 
 	i = 0;
 	nb_players = 0;
-	while (map->map[i])
+	while (game->map.map[i])
 	{
-		if (ft_strchr("NSEW", map->map[i]))
+		if (ft_strchr("NSEW", game->map.map[i]))
 			nb_players++;
 		if (nb_players > 1)
 		{
@@ -52,8 +53,8 @@ int	only_one_player(t_map *map)
 	}
 	if (nb_players == 1)
 	{
-		get_player_infos(map);
-		map->player.mvt_speed = SPEED;
+		get_player_infos(game);
+		game->player.mvt_speed = SPEED;
 		return (1);
 	}
 	ft_error("No player on the map.\n");

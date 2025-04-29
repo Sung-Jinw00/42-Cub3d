@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/28 18:23:55 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:15:28 by locagnio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int	check_sides(char **map_array, int map_height, int *len_strings)
 	return (1);
 }
 
-int	treat_map(char *map, int i, t_map *map_datas)
+int	treat_map(char *map, int i, t_game *game)
 {
 	char	**map_array;
 	int		*len_strings;
@@ -112,21 +112,21 @@ int	treat_map(char *map, int i, t_map *map_datas)
 	map_array = ft_split(map, "\n\r");
 	if (!map_array)
 		return (ft_error("Failed splitting map.\n"), 1);
-	map_datas->h_map = ft_count_words(map_array);
-	len_strings = malloc(sizeof(int) * map_datas->h_map);
+	game->map.h_map = ft_count_words(map_array);
+	len_strings = malloc(sizeof(int) * game->map.h_map);
 	if (!len_strings)
 		return (free_array(&map_array),
 			ft_error("Failed getting len of strings.\n"), 1);
 	while (map_array[++i])
 		len_strings[i] = ft_strlen(map_array[i]);
 	if (!ft_str_isformat(map_array[0], "1 ")
-		|| !ft_str_isformat(map_array[map_datas->h_map - 1], "1 ")
-		|| !check_sides(map_array, map_datas->h_map, len_strings)
-		|| !check_limits(map_array, map_datas->h_map, len_strings))
+		|| !ft_str_isformat(map_array[game->map.h_map - 1], "1 ")
+		|| !check_sides(map_array, game->map.h_map, len_strings)
+		|| !check_limits(map_array, game->map.h_map, len_strings))
 		return (free(len_strings), free_array(&map_array),
 			ft_error("Invalid map.\n"), 1);
-	map_datas->map = formated_map(map_array, map_datas, len_strings, -1);
-	if (!only_one_player(map_datas))
+	game->map.map = formated_map(map_array, &game->map, len_strings, -1);
+	if (!only_one_player(game))
 		return (free(len_strings), free_array(&map_array), 1);
 	return (0);
 }

@@ -12,6 +12,19 @@
 
 #include "cub3d.h"
 
+void	free_mlx(t_mlx *mlx)
+{
+	if (mlx->img.img_id)
+		mlx_destroy_image(mlx->init, mlx->img.img_id);
+	if (mlx->window)
+		mlx_destroy_window(mlx->init, mlx->window);
+	if (mlx->init)
+	{
+		mlx_destroy_display(mlx->init);
+		free(mlx->init);
+	}
+}
+
 void	free_map(t_map *map)
 {
 	if (map->no_path)
@@ -26,13 +39,10 @@ void	free_map(t_map *map)
 		ft_free(&map->map);
 	if (map->map_array)
 		free_array(&map->map_array);
-	if (map->mlx.img.img_id)
-		mlx_destroy_image(map->mlx.init, map->mlx.img.img_id);
-	if (map->mlx.window)
-		mlx_destroy_window(map->mlx.init, map->mlx.window);
-	if (map->mlx.init)
-	{
-		mlx_destroy_display(map->mlx.init);
-		free(map->mlx.init);
-	}
+}
+
+void	free_game(t_game *game)
+{
+	free_map(&game->map);
+	free_mlx(&game->mlx);
 }

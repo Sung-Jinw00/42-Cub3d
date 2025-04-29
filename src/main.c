@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:46:30 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/29 01:48:37 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/29 16:20:21 by locagnio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,22 @@
 int	main(int ac, char **av)
 {
 	int		len_file;
-	t_map	map_infos;
+	t_game	game;
 
 	if (ac == 2)
 	{
-		map_infos = (t_map){0};
+		game = (t_game){0};
 		len_file = ft_strlen(av[1]);
 		if (len_file <= 4 || ft_strcmp(av[1] + (len_file - 4), ".cub"))
 			return (ft_error("file with '.cub' extension needed.\n"), 1);
-		map_infos = (t_map){0};
-		if (treat_file(av[1], &map_infos) || set_mlx(&map_infos.mlx, "Cube3D"))
+		if (treat_file(av[1], &game) || set_mlx(&game.mlx, "Cube3D"))
 		{
-			free_map(&map_infos);
+			free_game(&game);
 			return (1);
 		}
-		init_hooks(&map_infos);
-		mlx_loop(map_infos.mlx.init);
-		free_map(&map_infos);
+		init_hooks(&game);
+		mlx_loop(game.mlx.init);
+		free_game(&game);
 		return (0);
 	}
 	usage_prompt();

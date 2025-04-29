@@ -69,12 +69,6 @@ typedef struct s_mlx
 	t_window	img;
 }	t_mlx;
 
-typedef struct s_game
-{
-	t_mlx		mlx;
-	t_player	player;
-}	t_game;
-
 typedef struct s_map
 {
 	char		*no_path;
@@ -87,18 +81,23 @@ typedef struct s_map
 	char		**map_array;
 	int			w_map;
 	int			h_map;
-	t_mlx		mlx;
-	t_game		game;
 }	t_map;
+
+typedef struct s_game
+{
+	t_mlx		mlx;
+	t_map		map;
+	t_player	player;
+}	t_game;
 
 //parse and treat file
 int		path_is_valid(char *pathname);
 char	**get_elem(t_map *map, int elem);
-int		treat_file(char *map_name, t_map *map_infos);
-int		treat_map(char *map, int i, t_map *map_datas);
+int		treat_file(char *map_name, t_game *game);
+int		treat_map(char *map, int i, t_game *game);
 
 //player
-int		only_one_player(t_map *map);
+int		only_one_player(t_game *game);
 void	actualise_player_pos(t_player *p, int key);
 int		is_valid_move(char **map_array, t_player p, int key);
 
@@ -110,12 +109,14 @@ void	ft_error(char *msg);
 int		set_mlx(t_mlx *mlx, char *win_title);
 
 //controls
-void	init_hooks(t_map *map);
+void	init_hooks(t_game *game);
 
 //debug
 void	print_map(t_map *map);
 
 //free
+void	free_mlx(t_mlx *mlx);
 void	free_map(t_map *map);
+void	free_game(t_game *game);
 
 #endif
