@@ -5,180 +5,114 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/27 19:56:50 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/04/27 23:01:54 by gakarbou         ###   ########.fr       */
+/*   Created: 2025/04/29 15:17:03 by gakarbou          #+#    #+#             */
+/*   Updated: 2025/04/29 16:37:18 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	*get_pos(void)
+static void	init_steps(t_raycast *infos, t_player *player)
 {
-	int *dest;
-
-	dest = malloc(sizeof(int) * 2);
-	dest[0] = 256 * 5;
-	dest[1] = 256 * 5;
-	return (dest);
-}
-
-void	put_pixel(t_img *img, int x, int y, int color)
-{
-	char    *pixel;
-
-    pixel = img->data + (y * img->size_line + x * (img->bpp / 8));
-    *(int *)pixel = color;
-}
-
-void	remove_bottom_half(void *mlx_img, int infos[2])
-{
-	int		i;
-	int		j;
-
-	j = -1;
-	while (++j < infos[1])
+	if (infos->ray_dir[0] < 0)
 	{
-		i = -1;
-		while (++i < infos[0])
-		{
-			if ((((infos[1] * i) + i) % (j + i + 1)) >= 20)
-				put_pixel(mlx_img, i, j, 0);
-		}
+		infos->steps[0] = -1;
+		infos->side_dist[0] = (player->x - infos->map_pos[0])
+			* infos->delta_dist[0];
+	}
+	else
+	{
+		infos->steps[0] = 1;
+		infos->side_dist[0] = (infos->map_pos[0] + 1 - player->x)
+			* infos->delta_dist[0];
+	}
+	if (infos->ray_dir[1] < 0)
+	{
+		infos->steps[1] = -1;
+		infos->side_dist[1] = (player->y - infos->map_pos[1])
+			* infos->delta_dist[1];
+	}
+	else
+	{
+		infos->steps[1] = 1;
+		infos->side_dist[1] = (infos->map_pos[0] + 1 - player->y)
+			* infos->delta_dist[1];
 	}
 }
 
-void	get_dist(int map[5][5])
+static void	init_raycast_infos(t_game *game, t_raycast *infos, double cam_x)
 {
-	double posX = 2.5, posY = 2.5;
-
-	double dirX = 0, dirY = -1;
-	double planeX = 0.66, planeY = 0;
-
-	for (int x = 0; x < 1000; x++)
-	{
-		double cameraX = 2 * x / (double)1000 - 1;
-		double rayDirX = dirX + planeX * cameraX;
-		double rayDirY = dirY + planeY * cameraX;
-
-		int mapX = (int)posX;
-		int mapY = (int)posY;
-
-		double sideDistX;
-		double sideDistY;
-
-		double deltaDistX;
-		double deltaDistY;
-		if (rayDirX)
-			deltaDistX = fabs(1 / rayDirX);
-		else
-			deltaDistX = 1e30;
-		if (rayDirY)
-			deltaDistY = fabs(1 / rayDirY);
-		else
-			deltaDistY = 1e30;
-		double perpWallDist;
-
-		int	stepX;
-		int	stepY;
-
-		int hit = 0;
-		int side;
-
-		if (rayDirX < 0)
-		{
-			stepX = -1;
-			sideDistX = (posX - mapX) * deltaDistX;
-		}
-		else
-		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - posX) * deltaDistX;
-		}
-		if (rayDirY < 0)
-		{
-			stepY = -1;
-			sideDistY = (posY - mapY) * deltaDistY;
-		}
-		else
-		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - posY) * deltaDistY;
-		}
-		while (!hit)
-		{
-			if (sideDistX < sideDistY)
-			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
-			}
-			else
-			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
-			}
-			if (map[mapY][mapX])
-				hit = 1;
-		}
-		if (side == 0)
-			perpWallDist = (mapX - posX + (1 - stepX) / 2) / dirX;
-		else
-			perpWallDist = (mapY - posY + (1 - stepY) / 2) / dirY;
-		printf("DIST = |%f| CAMX = |%f|\n", perpWallDist, cameraX);
-	}
-	return ;
+	infos->map_pos[0] = (int)game->player->x;
+	infos->map_pos[1] = (int)game->player->y;
+	infos->ray_dir[0] = (game->directions[0] + game->plane[0]) * cam_x;
+	infos->ray_dir[1] = (game->directions[1] + game->plane[1]) * cam_x;
+	if (infos->ray_dir[0])
+		infos->delta_dist[0] = fabs(1 / infos->ray_dir[0]);
+	else
+		infos->delta_dist[0] = 1e30;
+	if (infos->ray_dir[1])
+		infos->delta_dist[1] = fabs(1 / infos->ray_dir[1]);
+	else
+		infos->delta_dist[1] = 1e30;
+	init_steps(infos, game->player);
 }
 
-void	rotate_yahoo(t_img *img, int degree)
+static double	get_wall_dist(t_game *game, t_raycast *infos, double cam_x)
 {
-	(void)img;
-	(void)degree;
-	static int map[5][5] = {
-		{1,1,1,1,1},
-		{1,0,0,0,1},
-		{1,0,0,0,1},
-		{1,0,0,0,1},
-		{1,1,1,1,1},
-	};
-	get_dist(map);
-}
-
-void	put_stored_image(char *filename, void *mlx_ptr, void *mlx_win, void *mlx_img)
-{
-	int		**frame_buffer;
-	int		i;
-	int		j;
-
-	(void)mlx_win;
-	frame_buffer = store_image(filename, mlx_ptr);
-	j = -1;
-	while (frame_buffer[++j])
-	{
-		i = -1;
-		while (frame_buffer[j][++i] != -1)
-			if (frame_buffer[j][i] >= 0)
-				put_pixel(mlx_img, i, j, frame_buffer[j][i]);
-	}
-}
-
-int	raytest(void)
-{
-	void	*mlx_ptr;
-	void	*mlx_win;
-	void	*mlx_img;
-	//int		info[2];
-
-	mlx_ptr = mlx_init();
-	mlx_win = mlx_new_window(mlx_ptr, 1000, 1000, "The Binding of Isaac : Twilight Princess HD Remastered + Funky Mode\n");
-	mlx_img = mlx_new_image(mlx_ptr, 1000, 1000);
-	put_stored_image("assets/wall.xpm", mlx_ptr, mlx_win, mlx_img);
-	put_stored_image("assets/isaac.xpm", mlx_ptr, mlx_win, mlx_img);
-	mlx_put_image_to_window(mlx_ptr, mlx_win, mlx_img, 0, 0);
-	rotate_yahoo(mlx_img, 0);
+	init_raycast_infos(game, infos, cam_x);
 	while (1)
 	{
-			;
+		if (infos->side_dist[0] < infos->side_dist[1])
+		{
+			infos->side_dist[0] += infos->delta_dist[0];
+			infos->map_pos[0] += infos->steps[0];
+			infos->side = 0;
+		}
+		else
+		{
+			infos->side_dist[1] += infos->delta_dist[1];
+			infos->map_pos[1] += infos->steps[1];
+			infos->side = 1;
+		}
+		if (game->map[infos->map_pos[1]][infos->map_pos[0]] != '0')
+			break ;
 	}
-	return (0);
+	if (!infos->side)
+		return ((infos->map_pos[0] - game->player->x
+				+ (1 - infos->steps[0]) / 2) / infos->ray_dir[0]);
+	return ((infos->map_pos[1] - game->player->y
+			+ (1 - infos->steps[1]) / 2) / infos->ray_dir[1]);
+}
+
+static void	draw_column(t_img *img, int x, int column_infos[3])
+{
+	column_infos[1]++;
+	while (column_infos[0] != column_infos[1])
+	{
+		put_pixel(img, x, column_infos[0], column_infos[2]);
+		column_infos[0]++;
+	}
+}
+
+void	display_screen(t_game *game)
+{
+	t_raycast	infos;
+	double		wall_dist;
+	int			line_height;
+	int			column_infos[3];
+	int			x;
+
+	x = -1;
+	while (++x < 1000)
+	{
+		wall_dist = get_wall_dist(game, &infos, 2 * x / 1000.0 - 1);
+		line_height = (int)(1000 / wall_dist);
+		column_infos[0] = ft_min(-line_height / 2 + 1000 / 2, 0);
+		column_infos[1] = ft_max(line_height / 2 + 1000 / 2, 1000);
+		if (infos.side)
+			column_infos[2] = 0x0000FF;
+		else
+			column_infos[2] = 0xFF0000;
+		draw_column(game->mlx->img, x, column_infos);
+	}
 }

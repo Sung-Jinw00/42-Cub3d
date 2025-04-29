@@ -13,7 +13,7 @@ MLX_DIR = mlx
 MLX = $(MLX_DIR)/libmlx_Linux.a
 
 CC = cc
-FLAGS = -Wall -Wextra -O3 -g
+FLAGS = -Wall -Wextra -Werror -g
 MLX_FLAGS = -lX11 -lXext -lm
 
 FILES = main.c \
@@ -24,6 +24,7 @@ FILES = main.c \
 		player_check.c \
 		treat_file_utils.c \
 		store_image.c \
+		display_utils.c \
 		raycast.c
 # debug.c
 

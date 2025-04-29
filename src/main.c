@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:46:30 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/27 21:00:42 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:36:26 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	main(int ac, char **av)
 	int		len_file;
 	t_map	map_infos;
 
-	raytest();
-	return (0);
 	if (ac == 2)
 	{
 		len_file = ft_strlen(av[1]);

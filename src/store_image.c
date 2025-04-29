@@ -6,16 +6,11 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:21:23 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/04/24 15:02:21 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:34:43 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int	get_pixel_color(t_img *img, int x, int y)
-{
-	return (*(int *)(img->data + (y * img->size_line + x * (img->bpp / 8))));
-}
 
 static int	*copy_line(int j, void *img, int len)
 {

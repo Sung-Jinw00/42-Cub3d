@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/27 21:05:37 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:35:36 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	*treat_map(char *map, int i, t_map *map_datas);
 //player
 int		only_one_player(char *map);
 
-int		raytest(void);
 int		**store_image(char *pathname, void *mlx_ptr);
 //print
 int		usage_prompt(void);
@@ -55,6 +54,10 @@ void	ft_error(char *msg);
 
 //debug
 void	print_map(t_map *map);
+
+//display utils
+void	put_pixel(t_img *img, int x, int y, int color);
+int		get_pixel_color(t_img *img, int x, int y);
 
 //free
 void	free_map(t_map *map);
