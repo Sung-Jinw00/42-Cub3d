@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:40:40 by marvin            #+#    #+#             */
-/*   Updated: 2025/04/30 16:19:01 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:58:52 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,27 +86,31 @@ int	only_one_player(t_game *game)
 	return (0);
 }
 
-int	is_valid_move(char **map_array, t_player p, int key)
+void	actualise_player_pos(char **map_array, t_player p, t_player *ptr_p, int key)
 {
-	if (key == 'w')
-		return (map_array[(int)(p.y - p.mvt_speed)][(int)p.x] != '1');
-	else if (key == 'a')
-		return (map_array[(int)p.y][(int)(p.x - p.mvt_speed)] != '1');
-	else if (key == 's')
-		return (map_array[(int)(p.y + p.mvt_speed)][(int)p.x] != '1');
-	else if (key == 'd')
-		return (map_array[(int)p.y][(int)(p.x + p.mvt_speed)] != '1');
-	return (0);
-}
-
-void	actualise_player_pos(t_player *p, int key)
-{
-	if (key == 'w')
-		p->y -= p->mvt_speed;
-	else if (key == 'a')
-		p->x -= p->mvt_speed;
-	else if (key == 's')
-		p->y += p->mvt_speed;
-	else if (key == 'd')
-		p->x += p->mvt_speed;
+    if (key == 'w')
+    {
+        p.x += p.direction_x * p.mvt_speed;
+        p.y += p.direction_y * p.mvt_speed;
+    }
+    else if (key == 's')
+    {
+        p.x -= p.direction_x * p.mvt_speed;
+        p.y -= p.direction_y * p.mvt_speed;
+    }
+    else if (key == 'd')
+    {
+        p.x -= p.direction_y * p.mvt_speed;
+        p.y += p.direction_x * p.mvt_speed;
+    }
+    else if (key == 'a')
+    {
+        p.x += p.direction_y * p.mvt_speed;
+        p.y -= p.direction_x * p.mvt_speed;
+    }
+    if (map_array[(int)p.y][(int)(p.x)] != '1')
+    {
+        ptr_p->x = p.x;
+        ptr_p->y = p.y;
+    }
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/30 16:14:37 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/30 17:32:06 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@
 
 //window settings
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH		1200
+#  define WIN_WIDTH		4096
 # endif
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT	900
+#  define WIN_HEIGHT	2160
 # endif
 
 // Mouse defines
@@ -114,7 +114,8 @@ int		treat_map(char *map, int i, t_game *game);
 
 //player
 int		only_one_player(t_game *game);
-void	actualise_player_pos(t_player *p, int key);
+void	actualise_player_pos(char **map_array, t_player p, t_player *ptr_p,
+    int key);
 int		is_valid_move(char **map_array, t_player p, int key);
 
 //print
@@ -136,8 +137,8 @@ int		set_mlx(t_mlx *mlx, char *win_title);
 
 //controls
 void	init_hooks(t_game *game);
-void	key_pressed_check_controls(t_game *game);
-void	key_pressed_check_camera(t_game *game);
+int		key_pressed_check_controls(t_game *game);
+int		key_pressed_check_camera(t_game *game);
 
 //debug
 void	print_map(t_map *map);

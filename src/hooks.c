@@ -6,7 +6,7 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 02:51:28 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/04/30 16:20:39 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/30 17:09:18 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ static int	release_key(int key, t_game *game)
 
 static int	loop(t_game *game)
 {
-	key_pressed_check_controls(game);
-	key_pressed_check_camera(game);
+	int		ret;
+
+	ret = key_pressed_check_controls(game);
+	ret += key_pressed_check_camera(game);
 	display_screen(game);
 	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 17:02:01 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/30 16:19:14 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/30 17:09:40 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	key_pressed_check_camera(t_game *game)
+int	key_pressed_check_camera(t_game *game)
 {
 	int		ret;
 	double	rotation;
@@ -21,7 +21,7 @@ void	key_pressed_check_camera(t_game *game)
 	ret = game->key_infos.left_key - game->key_infos.right_key;
 	if (ret)
 	{
-		rotation = 0.02 - (0.04 * (ret == 1));
+		rotation = 0.04 - (0.08 * (ret == 1));
 		temp = game->player.direction_x;
 		game->player.direction_x = temp * cos(rotation)
 			- game->player.direction_y * sin(rotation);
@@ -33,12 +33,15 @@ void	key_pressed_check_camera(t_game *game)
 		game->player.plane_y = temp * sin(rotation)
 			+ game->player.plane_y * cos(rotation);
 	}
+	return (ret);
 }
 
-void	key_pressed_check_controls(t_game *game)
+int	key_pressed_check_controls(t_game *game)
 {
 	int		ret;
+	int		res;
 
+	res = 0;
 	ret = game->key_infos.d_key - game->key_infos.a_key;
 	if (ret)
 	{
@@ -46,8 +49,8 @@ void	key_pressed_check_controls(t_game *game)
 			ret = 'd';
 		else
 			ret = 'a';
-		if (is_valid_move(game->map.map_array, game->player, ret))
-			actualise_player_pos(&game->player, ret);
+		actualise_player_pos(game->map.map_array, game->player, &game->player, ret);
+		res = 1;
 	}
 	ret = game->key_infos.s_key - game->key_infos.w_key;
 	if (ret)
@@ -56,9 +59,10 @@ void	key_pressed_check_controls(t_game *game)
 			ret = 's';
 		else
 			ret = 'w';
-		if (is_valid_move(game->map.map_array, game->player, ret))
-			actualise_player_pos(&game->player, ret);
+		actualise_player_pos(game->map.map_array, game->player, &game->player, ret);
+		res = 1;
 	}
+	return (res);
 }
 
 /* for bonus */
