@@ -6,7 +6,7 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 16:31:43 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/04/29 17:27:41 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:20:16 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	put_pixel(t_img *img, int x, int y, int color)
 {
-	char    *pixel;
+	char	*pixel;
 
 	if (y < 0)
 		return ;
-    pixel = img->data + (y * img->size_line + x * (img->bpp / 8));
-    *(int *)pixel = color;
+	pixel = img->data + (y * img->size_line + x * (img->bpp / 8));
+	*(int *)pixel = color;
 }
 
 int	get_pixel_color(t_img *img, int x, int y)

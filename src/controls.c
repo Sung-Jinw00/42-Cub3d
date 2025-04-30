@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 17:02:01 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/30 03:15:47 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:19:14 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,17 @@ void	key_pressed_check_camera(t_game *game)
 	ret = game->key_infos.left_key - game->key_infos.right_key;
 	if (ret)
 	{
-		rotation = 0.01 - (0.02 * (ret == 1));
-		temp = game->player.directions[0];
-		game->player.directions[0] = temp * cos(rotation)
-			- game->player.directions[1] * sin(rotation);
-		game->player.directions[1] = temp * sin(rotation)
-			+ game->player.directions[1] * cos(rotation);
-		printf("ROT = |%f   %f|\n", game->player.directions[1], game->player.directions[0]);
-		temp = game->player.plane[0];
-		game->player.plane[0] = temp * cos(rotation)
-			- game->player.plane[1] * sin(rotation);
-		game->player.plane[1] = temp * sin(rotation)
-			+ game->player.plane[1] * cos(rotation);
+		rotation = 0.02 - (0.04 * (ret == 1));
+		temp = game->player.direction_x;
+		game->player.direction_x = temp * cos(rotation)
+			- game->player.direction_y * sin(rotation);
+		game->player.direction_y = temp * sin(rotation)
+			+ game->player.direction_y * cos(rotation);
+		temp = game->player.plane_x;
+		game->player.plane_x = temp * cos(rotation)
+			- game->player.plane_y * sin(rotation);
+		game->player.plane_y = temp * sin(rotation)
+			+ game->player.plane_y * cos(rotation);
 	}
 }
 

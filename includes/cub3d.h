@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/30 02:56:06 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:14:37 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
-	double	plane[2];
-	double	directions[2];
+	double	plane_x;
+	double	plane_y;
+	double	direction_x;
+	double	direction_y;
 	double	mvt_speed;
 }	t_player;
 

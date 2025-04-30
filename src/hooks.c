@@ -6,7 +6,7 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 02:51:28 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/04/30 02:56:56 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:20:39 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static int	pressed_key(int key, t_game *game)
 		game->key_infos.left_key = 1;
 	else if (key == XK_Right)
 		game->key_infos.right_key = 1;
-		/*&& is_valid_move(game->map.map_array, game->player, key))
-		actualise_player_pos(&game->player, key);*/
 	return (0);
 }
 
@@ -72,4 +70,3 @@ void	init_hooks(t_game *game)
 	mlx_hook(game->mlx.window, KeyRelease, KeyReleaseMask, release_key, game);
 	mlx_loop_hook(game->mlx.init, loop, game);
 }
-

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/29 17:11:06 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:30:56 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	get_rgb(t_map *map, char *info, int elem)
 	}
 	while (info[i] && info[i] != '\n')
 		if (ft_isnum(info[i++]))
-			return (ft_error("Too many RGB colors.\n"), 1);
+			return (ft_error("Too many RGB colors.\n"), 0);
 	return (1);
 }
 
@@ -56,8 +56,8 @@ static int	get_map_infos(t_map *map, char *info, char **elem, int elem_nb)
 	if (elem_nb < 4)
 	{
 		len_line = ft_strclen(info, '\n');
-		/*if (ft_strclen(info, '\r'))
-			len_line = ft_strclen(info, '\r');*/
+		if (ft_strclen(info, '\r'))
+			len_line = ft_strclen(info, '\r');
 		if (len_line < 4)
 			return (ft_error("No informations for an elem.\n"), 0);
 		len_line -= 3;
