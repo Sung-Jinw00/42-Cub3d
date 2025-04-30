@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/29 16:43:26 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/04/30 17:28:28 by locagnio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_player
 	double	x;
 	double	y;
 	double	rotation;
+	double	direction_x;
+	double	direction_y;	
 	double	mvt_speed;
 }	t_player;
 
@@ -98,8 +100,8 @@ int		treat_map(char *map, int i, t_game *game);
 
 //player
 int		only_one_player(t_game *game);
-void	actualise_player_pos(t_player *p, int key);
-int		is_valid_move(char **map_array, t_player p, int key);
+void	actualise_player_pos(char **map_array, t_player p, t_player *ptr_p,
+    		int key);
 
 //print
 int		usage_prompt(void);
