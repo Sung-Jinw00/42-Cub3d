@@ -27,6 +27,7 @@ FILES = main.c\
 		treat_file_utils.c \
 		store_image.c \
 		display_utils.c \
+		hooks.c \
 		raycast.c
 # debug.c
 

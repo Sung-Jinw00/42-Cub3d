@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/29 17:42:53 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/30 02:56:06 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@
 
 //window settings
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH		1000
+#  define WIN_WIDTH		1200
 # endif
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT	1000
+#  define WIN_HEIGHT	900
 # endif
 
 // Mouse defines
@@ -46,14 +46,22 @@
 # define SCROLL_UP		4
 # define SCROLL_DOWN	5
 
-typedef struct s_player
+typedef struct s_mlx
 {
-	double	x;
-	double	y;
-	double	plane[2];
-	double	directions[2];
-	double	mvt_speed;
-}	t_player;
+	void		*init;
+	void		*window;
+	void		*img;
+}	t_mlx;
+
+typedef struct s_keyboard_control
+{
+	char		w_key;
+	char		a_key;
+	char		s_key;
+	char		d_key;
+	char		left_key;
+	char		right_key;
+}	t_keyboard_control;
 
 typedef struct s_raycast
 {
@@ -65,12 +73,14 @@ typedef struct s_raycast
 	double		delta_dist[2];
 }	t_raycast;
 
-typedef struct s_mlx
+typedef struct s_player
 {
-	void		*init;
-	void		*window;
-	void		*img;
-}	t_mlx;
+	double	x;
+	double	y;
+	double	plane[2];
+	double	directions[2];
+	double	mvt_speed;
+}	t_player;
 
 typedef struct s_map
 {
@@ -88,9 +98,10 @@ typedef struct s_map
 
 typedef struct s_game
 {
-	t_mlx		mlx;
-	t_map		map;
-	t_player	player;
+	t_mlx				mlx;
+	t_map				map;
+	t_player			player;
+	t_keyboard_control	key_infos;
 }	t_game;
 
 //parse and treat file
@@ -123,6 +134,8 @@ int		set_mlx(t_mlx *mlx, char *win_title);
 
 //controls
 void	init_hooks(t_game *game);
+void	key_pressed_check_controls(t_game *game);
+void	key_pressed_check_camera(t_game *game);
 
 //debug
 void	print_map(t_map *map);

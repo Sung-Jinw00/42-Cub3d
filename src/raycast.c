@@ -6,7 +6,7 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:17:03 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/04/29 19:01:05 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/30 02:21:04 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,18 +106,18 @@ void	display_screen(t_game *game)
 
 	if (game->mlx.img)
 		mlx_destroy_image(game->mlx.init, game->mlx.img);
-	game->mlx.img = mlx_new_image(game->mlx.init, 1000, 1000);
+	game->mlx.img = mlx_new_image(game->mlx.init, WIN_WIDTH, WIN_HEIGHT);
 	x = -1;
-	while (++x < 1000)
+	while (++x < WIN_WIDTH)
 	{
-		wall_dist = get_wall_dist(game, &infos, 2 * x / 1000.0 - 1);
-		line_height = (int)(1000 / wall_dist);
-		column_infos[0] = ft_max(-line_height / 2 + 1000 / 2, 0);
-		column_infos[1] = ft_min(line_height / 2 + 1000 / 2, 1000);
+		wall_dist = get_wall_dist(game, &infos, (2.0 * x / (double)WIN_WIDTH - 1.0) / 2);
+		line_height = (int)(WIN_HEIGHT / wall_dist);
+		column_infos[0] = ft_max(-line_height / 2 + WIN_HEIGHT / 2, 0);
+		column_infos[1] = ft_min(line_height / 2 + WIN_HEIGHT / 2, WIN_HEIGHT);
 		if (infos.side)
-			column_infos[2] = 0xFF0000;
+			column_infos[2] = 0xFF0000 + (0xFF * (infos.map_pos[0] % 2));
 		else
-			column_infos[2] = 0xFFFF00;
+			column_infos[2] = 0xFFFF00 - (0xFF0000 * (infos.map_pos[1] % 2));
 		draw_column(game->mlx.img, x, column_infos);
 	}
 	mlx_put_image_to_window(game->mlx.init, game->mlx.window, game->mlx.img, 0, 0);

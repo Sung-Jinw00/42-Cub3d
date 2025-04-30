@@ -8,7 +8,7 @@ SO ./Makefile
 
 
 
-WE                                ./Makefile
+WE ./Makefile
 
 EA ./Makefile
 

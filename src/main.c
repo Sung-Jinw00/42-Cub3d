@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:29:31 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/04/29 17:19:52 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/30 02:29:12 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	main(int ac, char **av)
 			free_game(&game);
 			return (1);
 		}
-		display_screen(&game);
 		init_hooks(&game);
 		mlx_loop(game.mlx.init);
 		free_game(&game);
