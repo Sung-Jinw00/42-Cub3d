@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:40:40 by marvin            #+#    #+#             */
-/*   Updated: 2025/04/30 17:53:15 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:29:36 by locagnio         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,3 +90,4 @@ void	actualise_player_pos(char **map_array, t_player p, t_player *ptr_p,
 		ptr_p->y = p.y;
 	}
 }
+
