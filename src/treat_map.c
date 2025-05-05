@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   treat_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/29 16:15:28 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:30:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static char	*formated_map(char **map_array, t_map *map, int *len_strings, int i)
 				map_array[i][j] = '1';
 	}
 	map->map_array = map_array;
-	free(len_strings);
 	formated_map = malloc(sizeof(char) * (map->h_map * map->w_map + 1));
 	if (!formated_map)
 		return (ft_error("Failed creating formated map.\n"), NULL);
