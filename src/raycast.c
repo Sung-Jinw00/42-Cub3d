@@ -6,7 +6,7 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:17:03 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/05/06 05:40:16 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:36:26 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ void	display_screen(t_game *game, t_opti_const consts)
 				(cam_coef * x - 1), game->map.map_array);
 		infos.line_height = (WIN_HEIGHT / infos.wall_dist);
 		infos.half_line_height = infos.line_height / 2;
-		infos.wall_pos[0] = -infos.half_line_height
-			+ consts.half_height;
+		infos.wall_pos[0] = (-infos.half_line_height
+				+ consts.half_height);
 		if (infos.wall_pos[0] >> 31)
 			infos.wall_pos[0] = 0;
-		infos.wall_pos[1] = infos.half_line_height + consts.half_height;
+		infos.wall_pos[1] = (infos.half_line_height + consts.half_height);
 		if (infos.wall_pos[1] > WIN_HEIGHT)
 			infos.wall_pos[1] = WIN_HEIGHT;
 		draw_column(game, x, game->map, &infos);

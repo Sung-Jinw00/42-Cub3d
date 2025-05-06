@@ -6,7 +6,7 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 23:49:22 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/05/06 05:59:11 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:35:26 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static inline void	init_raycast_infos(t_player *player, t_raycast *infos,
 	infos->map_pos[0] = (int)player->x;
 	infos->map_pos[1] = (int)player->y;
 	infos->ray_dir[0] = player->direction_x
-		+ player->plane_x * (cam_x / 1.313);
+		+ player->plane_x * cam_x;
 	infos->ray_dir[1] = player->direction_y
-		+ player->plane_y * (cam_x / 1.313);
+		+ player->plane_y * cam_x;
 	if (infos->ray_dir[0])
 		infos->delta_dist[0] = fabs(1 / infos->ray_dir[0]);
 	else
