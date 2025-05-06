@@ -13,7 +13,7 @@ MLX_DIR = mlx
 MLX = $(MLX_DIR)/libmlx_Linux.a
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -g
 MLX_FLAGS = -lX11 -lXext -lm
 
 FILES = main.c\
@@ -28,6 +28,8 @@ FILES = main.c\
 		store_image.c \
 		display_utils.c \
 		hooks.c \
+		get_wall_dist.c \
+		draw_texture.c \
 		raycast.c
 # debug.c
 
@@ -68,7 +70,7 @@ clean:
 
 fclean: clean
 	@echo $(GREEN)"Libft cleared !"$(RESET)
-	@make -C $(LIBFT_DIR) fclean > /dev/null
+	#@make -C $(LIBFT_DIR) fclean > /dev/null
 	@echo $(GREEN)"$(NAME) cleared !"$(RESET)
 	@$(RM) $(NAME)
 

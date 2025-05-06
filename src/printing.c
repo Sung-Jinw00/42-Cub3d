@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:56:33 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 18:45:05 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/05 16:35:37 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ int	usage_prompt(void)
 
 void	ft_error(char *msg)
 {
-	write(2, "Error\n", 6);
+	ft_write(2, "Error\n");
 	ft_write(2, msg);
 }

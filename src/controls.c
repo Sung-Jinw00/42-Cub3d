@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 17:02:01 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/30 17:09:40 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/04/30 22:01:26 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,24 @@ int	key_pressed_check_camera(t_game *game)
 	return (ret);
 }
 
-int	key_pressed_check_controls(t_game *game)
+static void	update_movement_speed(t_keyboard_control infos, double *speed)
+{
+	int		hsp;
+	int		vsp;
+
+	hsp = infos.d_key - infos.a_key;
+	vsp = infos.s_key - infos.w_key;
+	if (hsp && vsp)
+		*speed = SPEED / 2;
+	else
+		*speed = SPEED;
+}
+
+void	key_pressed_check_controls(t_game *game)
 {
 	int		ret;
-	int		res;
 
-	res = 0;
+	update_movement_speed(game->key_infos, &game->player.mvt_speed);
 	ret = game->key_infos.d_key - game->key_infos.a_key;
 	if (ret)
 	{
@@ -49,8 +61,7 @@ int	key_pressed_check_controls(t_game *game)
 			ret = 'd';
 		else
 			ret = 'a';
-		actualise_player_pos(game->map.map_array, game->player, &game->player, ret);
-		res = 1;
+		actualise_player_pos(game->map.map_array, &game->player, ret);
 	}
 	ret = game->key_infos.s_key - game->key_infos.w_key;
 	if (ret)
@@ -59,10 +70,8 @@ int	key_pressed_check_controls(t_game *game)
 			ret = 's';
 		else
 			ret = 'w';
-		actualise_player_pos(game->map.map_array, game->player, &game->player, ret);
-		res = 1;
+		actualise_player_pos(game->map.map_array, &game->player, ret);
 	}
-	return (res);
 }
 
 /* for bonus */

@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:40:40 by marvin            #+#    #+#             */
-/*   Updated: 2025/04/30 16:58:52 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/06 05:49:43 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ static void	get_player_infos(t_game *game)
 		&& !ft_strchr(game->map.map_array[y], 'E')
 		&& !ft_strchr(game->map.map_array[y], 'W'))
 		y++;
-	game->player.y = y + 0.5;
+	game->player.y = y + 0.50001;
 	x = 0;
 	while (!ft_strchr("NSEW", game->map.map_array[y][x]))
 		x++;
-	game->player.x = x + 0.5;
+	game->player.x = x + 0.50001;
 	init_camera(game, game->map.map_array[y][x]);
 	game->map.map_array[(int)game->player.y][(int)game->player.x] = '0';
 	game->map.map[(int)((game->player.y * game->map.w_map)
@@ -86,31 +86,38 @@ int	only_one_player(t_game *game)
 	return (0);
 }
 
-void	actualise_player_pos(char **map_array, t_player p, t_player *ptr_p, int key)
+static void	compute_movement(t_player *cpy, int key)
 {
-    if (key == 'w')
-    {
-        p.x += p.direction_x * p.mvt_speed;
-        p.y += p.direction_y * p.mvt_speed;
-    }
-    else if (key == 's')
-    {
-        p.x -= p.direction_x * p.mvt_speed;
-        p.y -= p.direction_y * p.mvt_speed;
-    }
-    else if (key == 'd')
-    {
-        p.x -= p.direction_y * p.mvt_speed;
-        p.y += p.direction_x * p.mvt_speed;
-    }
-    else if (key == 'a')
-    {
-        p.x += p.direction_y * p.mvt_speed;
-        p.y -= p.direction_x * p.mvt_speed;
-    }
-    if (map_array[(int)p.y][(int)(p.x)] != '1')
-    {
-        ptr_p->x = p.x;
-        ptr_p->y = p.y;
-    }
+	if (key == 'w')
+	{
+		cpy->x += cpy->direction_x * cpy->mvt_speed;
+		cpy->y += cpy->direction_y * cpy->mvt_speed;
+	}
+	else if (key == 's')
+	{
+		cpy->x -= cpy->direction_x * cpy->mvt_speed;
+		cpy->y -= cpy->direction_y * cpy->mvt_speed;
+	}
+	else if (key == 'd')
+	{
+		cpy->x -= cpy->direction_y * cpy->mvt_speed;
+		cpy->y += cpy->direction_x * cpy->mvt_speed;
+	}
+	else if (key == 'a')
+	{
+		cpy->x += cpy->direction_y * cpy->mvt_speed;
+		cpy->y -= cpy->direction_x * cpy->mvt_speed;
+	}
+}
+
+void	actualise_player_pos(char **map_array, t_player *player, int key)
+{
+	t_player	cpy;
+
+	cpy = *player;
+	compute_movement(&cpy, key);
+	if (map_array[(int)player->y][(int)(cpy.x)] != '1')
+		player->x = cpy.x;
+	if (map_array[(int)cpy.y][(int)(player->x)] != '1')
+		player->y = cpy.y;
 }

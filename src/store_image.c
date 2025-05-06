@@ -6,46 +6,34 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:21:23 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/04/29 16:43:11 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/06 03:51:38 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	*copy_line(int j, void *img, int len)
+static void	store_image(char *pathname, t_map *map, void *mlx_ptr, int i)
 {
-	int		*dest;
-	int		i;
+	t_texture	dest;
 
-	dest = malloc(sizeof(int) * (len + 1));
-	if (!dest)
-		return (NULL);
-	i = -1;
-	while (++i < len)
-		dest[i] = get_pixel_color(img, i, j);
-	dest[i] = -1;
-	return (dest);
+	dest.ptr = mlx_xpm_file_to_image(mlx_ptr, pathname, &dest.width,
+			&dest.height);
+	if (dest.ptr)
+		dest.data = mlx_get_data_addr(dest.ptr, &dest.bpp,
+				&dest.size_line, &dest.endian);
+	dest.fake_bpp = dest.bpp / 8;
+	dest.tex_endian = dest.endian - 1;
+	dest.d_width = (double)dest.width;
+	map->tex_list[i] = dest;
 }
 
-int	**store_image(char *pathname, void *mlx_ptr)
+void	store_textures(t_map *map, void *mlx)
 {
-	int		**frame_buffer;
-	t_img	*mlx_img;
-	int		file_dimensions[2];
-	int		j;
-
-	mlx_img = mlx_xpm_file_to_image(mlx_ptr, pathname, &file_dimensions[0],
-			&file_dimensions[1]);
-	frame_buffer = malloc(sizeof(int *) * (file_dimensions[1] + 1));
-	if (!frame_buffer)
-	{
-		mlx_destroy_image(mlx_ptr, mlx_img);
-		return (NULL);
-	}
-	j = -1;
-	while (++j < file_dimensions[1])
-		frame_buffer[j] = copy_line(j, mlx_img, file_dimensions[0]);
-	mlx_destroy_image(mlx_ptr, mlx_img);
-	frame_buffer[j] = NULL;
-	return (frame_buffer);
+	map->tex_list = malloc(sizeof(t_texture) * 5);
+	if (!map->tex_list)
+		return ;
+	store_image(map->no_path, map, mlx, 0);
+	store_image(map->so_path, map, mlx, 1);
+	store_image(map->we_path, map, mlx, 2);
+	store_image(map->ea_path, map, mlx, 3);
 }

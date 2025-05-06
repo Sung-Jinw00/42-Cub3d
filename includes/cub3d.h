@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/30 17:32:06 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/06 06:02:06 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@
 
 //game settings
 # ifndef SPEED
-#  define SPEED			(1.0 / 15.0)
+#  define SPEED			0.06666
 # endif
 
 //window settings
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH		4096
+#  define WIN_WIDTH		1500
 # endif
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT	2160
+#  define WIN_HEIGHT	1500
 # endif
 
 // Mouse defines
@@ -51,6 +51,7 @@ typedef struct s_mlx
 	void		*init;
 	void		*window;
 	void		*img;
+	int			size_line;
 }	t_mlx;
 
 typedef struct s_keyboard_control
@@ -66,12 +67,41 @@ typedef struct s_keyboard_control
 typedef struct s_raycast
 {
 	char		side;
+	int			line_height;
+	int			half_line_height;
 	char		steps[2];
 	int			map_pos[2];
+	int			wall_pos[2];
 	double		ray_dir[2];
 	double		side_dist[2];
 	double		delta_dist[2];
+	double		wall_dist;
+	int			texture_x;
+	int			size_line;
+	int			*addr;
 }	t_raycast;
+
+typedef struct s_opti_const
+{
+	double	float_width;
+	int		half_height;
+}	t_opti_const;
+
+typedef struct s_texture
+{
+	void			*ptr;
+	char			*data;
+	int				endian;
+	int				tex_endian;
+	int				size_line;
+	int				bpp;
+	int				fake_bpp;
+	int				width;
+	double			d_width;
+	int				height;
+	int				type;
+	int				format;
+}	t_texture;
 
 typedef struct s_player
 {
@@ -86,12 +116,13 @@ typedef struct s_player
 
 typedef struct s_map
 {
+	t_texture	*tex_list;
 	char		*no_path;
 	char		*so_path;
 	char		*we_path;
 	char		*ea_path;
-	int			f_rgb[3];
-	int			c_rgb[3];
+	int			f_rgb;
+	int			c_rgb;
 	char		*map;
 	char		**map_array;
 	int			w_map;
@@ -103,6 +134,7 @@ typedef struct s_game
 	t_mlx				mlx;
 	t_map				map;
 	t_player			player;
+	t_opti_const		consts;
 	t_keyboard_control	key_infos;
 }	t_game;
 
@@ -114,8 +146,7 @@ int		treat_map(char *map, int i, t_game *game);
 
 //player
 int		only_one_player(t_game *game);
-void	actualise_player_pos(char **map_array, t_player p, t_player *ptr_p,
-    int key);
+void	actualise_player_pos(char **map_array, t_player *ptr_p, int key);
 int		is_valid_move(char **map_array, t_player p, int key);
 
 //print
@@ -126,18 +157,19 @@ void	ft_error(char *msg);
 void	print_map(t_map *map);
 
 //display utils
-void	display_screen(t_game *game);
+void	store_textures(t_map *map, void *mlx);
+void	display_screen(t_game *game, t_opti_const consts);
+void	put_texture(t_game *game, int *addr, int size_line, t_raycast *infos);
+double	get_wall_dist(t_game *game, t_raycast *infos, double cam_x, char **map);
 void	put_pixel(t_img *img, int x, int y, int color);
 int		get_pixel_color(t_img *img, int x, int y);
 
-//free
-void	free_map(t_map *map);
 //mlx
 int		set_mlx(t_mlx *mlx, char *win_title);
 
 //controls
 void	init_hooks(t_game *game);
-int		key_pressed_check_controls(t_game *game);
+void	key_pressed_check_controls(t_game *game);
 int		key_pressed_check_camera(t_game *game);
 
 //debug
@@ -145,7 +177,6 @@ void	print_map(t_map *map);
 
 //free
 void	free_mlx(t_mlx *mlx);
-void	free_map(t_map *map);
 void	free_game(t_game *game);
 
 #endif
