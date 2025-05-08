@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:40:40 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/06 17:36:09 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/08 18:30:16 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,16 @@ static void	init_camera(t_game *game, char dir)
 	if (dir == 'W' || dir == 'E')
 	{
 		game->player.direction_x = 1 - (2 * (dir == 'W'));
-		game->player.direction_y = 0;
-		game->player.plane_x = 0;
+		game->player.plane_y = 0.66;
 		if (dir == 'W')
 			game->player.plane_y = -0.66;
-		else
-			game->player.plane_y = 0.66;
 	}
 	else
 	{
-		game->player.direction_x = 0;
 		game->player.direction_y = 1 - (2 * (dir == 'N'));
+		game->player.plane_x = 0.66;
 		if (dir == 'S')
 			game->player.plane_x = -0.66;
-		else
-			game->player.plane_x = 0.66;
-		game->player.plane_y = 0;
 	}
 }
 
@@ -47,11 +41,11 @@ static void	get_player_infos(t_game *game)
 		&& !ft_strchr(game->map.map_array[y], 'E')
 		&& !ft_strchr(game->map.map_array[y], 'W'))
 		y++;
-	game->player.y = y + 0.50001;
+	game->player.y = y + 0.5001;
 	x = 0;
 	while (!ft_strchr("NSEW", game->map.map_array[y][x]))
 		x++;
-	game->player.x = x + 0.50001;
+	game->player.x = x + 0.5001;
 	init_camera(game, game->map.map_array[y][x]);
 	game->map.map_array[(int)game->player.y][(int)game->player.x] = '0';
 	game->map.map[(int)((game->player.y * game->map.w_map)

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/05/06 05:46:09 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/08 18:37:27 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static int	get_rgb(t_map *map, char *info, int elem)
 		if (ft_isnum(info[i++]))
 			return (ft_error("Too many RGB colors.\n"), 0);
 	if (elem == 4)
-		map->f_rgb = (rgb[0] * 65536) + (rgb[1] * 256) + rgb[2];
+		map->f_rgb = (rgb[0] * 256 * 256) + (rgb[1] * 256) + rgb[2];
 	else if (elem == 5)
-		map->c_rgb = (rgb[0] * 65536) + (rgb[1] * 256) + rgb[2];
+		map->c_rgb = (rgb[0] * 256 * 256) + (rgb[1] * 256) + rgb[2];
 	return (1);
 }
 
@@ -105,7 +105,6 @@ int	treat_file(char *map_name, t_game *game)
 	int		i;
 
 	i = 0;
-	game->map.tex_list = NULL;
 	init_elem_infos(elems);
 	file_infos = ft_read_file(map_name);
 	if (!file_infos || !file_infos[0])

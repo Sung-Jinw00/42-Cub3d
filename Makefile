@@ -13,7 +13,7 @@ MLX_DIR = mlx
 MLX = $(MLX_DIR)/libmlx_Linux.a
 
 CC = cc
-FLAGS = -Wall -Wextra -g
+FLAGS = -Wall -Wextra -O3 -g
 MLX_FLAGS = -lX11 -lXext -lm
 
 FILES = main.c\
@@ -30,7 +30,8 @@ FILES = main.c\
 		hooks.c \
 		get_wall_dist.c \
 		draw_texture.c \
-		raycast.c
+		raycast.c \
+		raycast_utils.c 
 # debug.c
 
 OBJS = $(FILES:%.c=$(OBJ_DIR)/%.o)

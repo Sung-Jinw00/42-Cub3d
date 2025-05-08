@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/05/06 17:35:30 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/08 18:41:43 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,16 @@
 # ifndef SPEED
 #  define SPEED			0.06666
 # endif
+# ifndef ROT_SPEED
+#  define ROT_SPEED		0.10
+# endif
 
 //window settings
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH		1200
+#  define WIN_WIDTH		2000
 # endif
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT	720
+#  define WIN_HEIGHT	2000
 # endif
 
 // Mouse defines
@@ -79,12 +82,15 @@ typedef struct s_raycast
 	int			texture_x;
 	int			size_line;
 	int			*addr;
+	int			half_win_height;
 }	t_raycast;
 
 typedef struct s_opti_const
 {
 	double	float_width;
+	double	cam_coef;
 	int		half_height;
+	int		size_line_steps[5];
 }	t_opti_const;
 
 typedef struct s_texture
@@ -99,8 +105,6 @@ typedef struct s_texture
 	int				width;
 	double			d_width;
 	int				height;
-	int				type;
-	int				format;
 }	t_texture;
 
 typedef struct s_player
@@ -158,11 +162,12 @@ void	print_map(t_map *map);
 
 //display utils
 void	store_textures(t_map *map, void *mlx);
-void	display_screen(t_game *game, t_opti_const consts);
-void	put_texture(t_game *game, int *addr, int size_line, t_raycast *infos);
+void	display_screen(t_game *game, t_opti_const consts, t_mlx mlx);
+void	put_texture(t_game *game, int *addr, t_raycast *infos, int size_line);
 double	get_wall_dist(t_game *game, t_raycast *infos, double cam_x, char **map);
 void	put_pixel(t_img *img, int x, int y, int color);
 int		get_pixel_color(t_img *img, int x, int y);
+void	init_size_line_steps(int size_line, int steps[5]);
 
 //mlx
 int		set_mlx(t_mlx *mlx, char *win_title);

@@ -6,7 +6,7 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 23:49:22 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/05/06 17:35:26 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/08 18:15:44 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ double	get_wall_dist(t_game *game, t_raycast *infos, double cam_x, char **map)
 	int		is_vert;
 
 	init_raycast_infos(&game->player, infos, cam_x);
-	while (map[infos->map_pos[1]][infos->map_pos[0]] != '1')
+	while ((map[infos->map_pos[1]])[infos->map_pos[0]] != '1')
 	{
 		is_vert = infos->side_dist[0] >= infos->side_dist[1];
 		infos->side_dist[is_vert] += infos->delta_dist[is_vert];
