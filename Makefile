@@ -30,8 +30,7 @@ FILES = main.c\
 		hooks.c \
 		get_wall_dist.c \
 		draw_texture.c \
-		raycast.c \
-		raycast_utils.c 
+		raycast.c
 # debug.c
 
 OBJS = $(FILES:%.c=$(OBJ_DIR)/%.o)
