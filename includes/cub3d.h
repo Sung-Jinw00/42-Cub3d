@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/05/09 16:45:15 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:38:39 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@
 
 //window settings
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH		2000
+#  define WIN_WIDTH		2500
 # endif
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT	2000
+#  define WIN_HEIGHT	2500
 # endif
 
 // Mouse defines
@@ -72,12 +72,8 @@ typedef struct s_raycast
 	char		side;
 	int			line_height;
 	int			half_line_height;
-	char		steps[2];
-	int			map_pos[2];
 	int			wall_pos[2];
 	double		ray_dir[2];
-	double		side_dist[2];
-	double		delta_dist[2];
 	double		wall_dist;
 	int			texture_x;
 	int			size_line;
@@ -164,7 +160,8 @@ void	print_map(t_map *map);
 void	store_textures(t_map *map, void *mlx);
 void	display_screen(t_game *game, t_opti_const consts, t_mlx mlx);
 void	put_texture(t_game *game, int *addr, t_raycast *infos, int size_line);
-double	get_wall_dist(t_game *game, t_raycast *infos, double cam_x, char **map);
+double	get_wall_dist(t_player player, t_raycast *infos,
+			double cam_x, char **map);
 void	put_pixel(t_img *img, int x, int y, int color);
 int		get_pixel_color(t_img *img, int x, int y);
 void	init_size_line_steps(int size_line, int steps[5]);

@@ -6,7 +6,7 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:17:03 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/05/08 18:34:19 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:56:45 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	display_screen(t_game *game, t_opti_const consts, t_mlx mlx)
 	infos.half_win_height = consts.half_height;
 	while (x--)
 	{
-		infos.wall_dist = get_wall_dist(game, &infos,
+		infos.wall_dist = get_wall_dist(game->player, &infos,
 				(cam_coef * x - 1), game->map.map_array);
 		infos.line_height = (int)(WIN_HEIGHT / infos.wall_dist);
 		infos.half_line_height = infos.line_height / 2;
