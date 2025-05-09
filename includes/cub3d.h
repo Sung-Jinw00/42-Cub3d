@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/05/08 18:41:43 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:45:15 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_mlx
 {
 	void		*init;
 	void		*window;
-	void		*img;
+	t_img		*img;
 	int			size_line;
 }	t_mlx;
 

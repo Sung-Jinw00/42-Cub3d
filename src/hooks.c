@@ -6,7 +6,7 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 02:51:28 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/05/08 18:21:33 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:44:11 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,9 @@ static int	loop(t_game *game)
 
 void	init_hooks(t_game *game)
 {
-	game->key_infos = (t_keyboard_control){0};
 	game->consts.float_width = (double)WIN_WIDTH;
 	game->consts.half_height = WIN_HEIGHT / 2;
 	game->consts.cam_coef = 2 / game->consts.float_width;
-	init_size_line_steps(game->mlx.size_line, game->consts.size_line_steps);
 	mlx_hook(game->mlx.window, DestroyNotify, KeyReleaseMask, quit, game);
 	mlx_hook(game->mlx.window, KeyPress, KeyPressMask, pressed_key, game);
 	mlx_hook(game->mlx.window, KeyRelease, KeyReleaseMask, release_key, game);

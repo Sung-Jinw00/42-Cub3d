@@ -6,7 +6,7 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:21:23 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/05/06 03:51:38 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:44:35 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	store_image(char *pathname, t_map *map, void *mlx_ptr, int i)
 
 void	store_textures(t_map *map, void *mlx)
 {
-	map->tex_list = malloc(sizeof(t_texture) * 5);
+	map->tex_list = malloc(sizeof(t_texture) * 4);
 	if (!map->tex_list)
 		return ;
 	store_image(map->no_path, map, mlx, 0);
