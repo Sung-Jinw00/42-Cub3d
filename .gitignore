@@ -4,5 +4,4 @@
 .vscode
 *.json
 *.gch
-*.cub
 cub3d

@@ -1,0 +1,13 @@
+NO ./test.cub
+SO ./test.cub
+WE ./test.cub
+EA ./test.cub
+
+F 255,0,0
+C 255,0,0
+
+11111
+10001
+10N01
+10001
+11111

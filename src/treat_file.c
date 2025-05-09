@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/04/23 20:57:11 by marvin           ###   ########.fr       */
+/*   Updated: 2025/05/08 18:37:27 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,27 @@ static void	init_elem_infos(char *elems[])
 
 static int	get_rgb(t_map *map, char *info, int elem)
 {
-	int	*rgb;
+	int	rgb[3];
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	rgb = NULL;
-	if (elem == 4)
-		rgb = map->f_rgb;
-	else if (elem == 5)
-		rgb = map->c_rgb;
-	while (rgb && j < 3)
+	while (j < 3)
 	{
 		rgb[j++] = ft_natoi(info, &i);
 		if (!ft_isnum(info[i - 1]) || rgb[j - 1] > 255 || rgb[j - 1] < 0)
 			return (ft_error("Invalid RGB color.\n"), 0);
-		i++;
+		if (i != '\n')
+			i++;
 	}
 	while (info[i] && info[i] != '\n')
 		if (ft_isnum(info[i++]))
 			return (ft_error("Too many RGB colors.\n"), 0);
+	if (elem == 4)
+		map->f_rgb = (rgb[0] * 256 * 256) + (rgb[1] * 256) + rgb[2];
+	else if (elem == 5)
+		map->c_rgb = (rgb[0] * 256 * 256) + (rgb[1] * 256) + rgb[2];
 	return (1);
 }
 
@@ -56,8 +56,6 @@ static int	get_map_infos(t_map *map, char *info, char **elem, int elem_nb)
 	if (elem_nb < 4)
 	{
 		len_line = ft_strclen(info, '\n');
-		if (ft_strclen(info, '\r'))
-			len_line = ft_strclen(info, '\r');
 		if (len_line < 4)
 			return (ft_error("No informations for an elem.\n"), 0);
 		len_line -= 3;

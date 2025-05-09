@@ -6,11 +6,29 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:40:40 by marvin            #+#    #+#             */
-/*   Updated: 2025/04/29 16:21:40 by locagnio         ###   ########.fr       */
+/*   Updated: 2025/05/08 18:30:16 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	init_camera(t_game *game, char dir)
+{
+	if (dir == 'W' || dir == 'E')
+	{
+		game->player.direction_x = 1 - (2 * (dir == 'W'));
+		game->player.plane_y = 0.66;
+		if (dir == 'W')
+			game->player.plane_y = -0.66;
+	}
+	else
+	{
+		game->player.direction_y = 1 - (2 * (dir == 'N'));
+		game->player.plane_x = 0.66;
+		if (dir == 'S')
+			game->player.plane_x = -0.66;
+	}
+}
 
 static void	get_player_infos(t_game *game)
 {
@@ -23,11 +41,12 @@ static void	get_player_infos(t_game *game)
 		&& !ft_strchr(game->map.map_array[y], 'E')
 		&& !ft_strchr(game->map.map_array[y], 'W'))
 		y++;
-	game->player.y = y;
+	game->player.y = y + 0.5001;
 	x = 0;
 	while (!ft_strchr("NSEW", game->map.map_array[y][x]))
 		x++;
-	game->player.x = x;
+	game->player.x = x + 0.5001;
+	init_camera(game, game->map.map_array[y][x]);
 	game->map.map_array[(int)game->player.y][(int)game->player.x] = '0';
 	game->map.map[(int)((game->player.y * game->map.w_map)
 			+ game->player.x)] = '0';
@@ -61,27 +80,38 @@ int	only_one_player(t_game *game)
 	return (0);
 }
 
-int	is_valid_move(char **map_array, t_player p, int key)
+static void	compute_movement(t_player *cpy, int key)
 {
 	if (key == 'w')
-		return (map_array[(int)(p.y - p.mvt_speed)][(int)p.x] != '1');
-	else if (key == 'a')
-		return (map_array[(int)p.y][(int)(p.x - p.mvt_speed)] != '1');
+	{
+		cpy->x += cpy->direction_x * cpy->mvt_speed;
+		cpy->y += cpy->direction_y * cpy->mvt_speed;
+	}
 	else if (key == 's')
-		return (map_array[(int)(p.y + p.mvt_speed)][(int)p.x] != '1');
+	{
+		cpy->x -= cpy->direction_x * cpy->mvt_speed;
+		cpy->y -= cpy->direction_y * cpy->mvt_speed;
+	}
 	else if (key == 'd')
-		return (map_array[(int)p.y][(int)(p.x + p.mvt_speed)] != '1');
-	return (0);
+	{
+		cpy->x -= cpy->direction_y * cpy->mvt_speed;
+		cpy->y += cpy->direction_x * cpy->mvt_speed;
+	}
+	else if (key == 'a')
+	{
+		cpy->x += cpy->direction_y * cpy->mvt_speed;
+		cpy->y -= cpy->direction_x * cpy->mvt_speed;
+	}
 }
 
-void	actualise_player_pos(t_player *p, int key)
+void	actualise_player_pos(char **map_array, t_player *player, int key)
 {
-	if (key == 'w')
-		p->y -= p->mvt_speed;
-	else if (key == 'a')
-		p->x -= p->mvt_speed;
-	else if (key == 's')
-		p->y += p->mvt_speed;
-	else if (key == 'd')
-		p->x += p->mvt_speed;
+	t_player	cpy;
+
+	cpy = *player;
+	compute_movement(&cpy, key);
+	if (map_array[(int)player->y][(int)(cpy.x)] != '1')
+		player->x = cpy.x;
+	if (map_array[(int)cpy.y][(int)(player->x)] != '1')
+		player->y = cpy.y;
 }
