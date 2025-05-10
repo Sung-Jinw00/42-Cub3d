@@ -6,11 +6,11 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:40:40 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/08 18:30:16 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:39:07 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	init_camera(t_game *game, char dir)
 {

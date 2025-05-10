@@ -6,11 +6,11 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 17:02:01 by locagnio          #+#    #+#             */
-/*   Updated: 2025/05/08 18:40:44 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:37:31 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	key_pressed_check_camera(t_game *game)
 {

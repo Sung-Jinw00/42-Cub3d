@@ -3,8 +3,10 @@ MAKEFLAGS += -s
 NAME = cub3d
 
 INCLUDE = includes
-SRC_DIR = src
+SRC_DIR = mandatory
+BONUS_DIR = bonus
 OBJ_DIR = objs
+OBJ_BONUS_DIR = objs_bonus/
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -16,14 +18,14 @@ CC = cc
 FLAGS = -Wall -Wextra -O3 -g
 MLX_FLAGS = -lX11 -lXext -lm
 
-FILES = main.c\
-		free.c\
-		player.c\
-		set_mlx.c\
-		controls.c\
-		printing.c\
-		treat_map.c\
-		treat_file.c\
+FILES = main.c \
+		free.c \
+		player.c \
+		set_mlx.c \
+		controls.c \
+		printing.c \
+		treat_map.c \
+		treat_file.c \
 		treat_file_utils.c \
 		store_image.c \
 		display_utils.c \
@@ -31,9 +33,25 @@ FILES = main.c\
 		get_wall_dist.c \
 		draw_texture.c \
 		raycast.c
-# debug.c
+
+FILES_BONUS = main.c \
+		free.c \
+		player.c \
+		set_mlx.c \
+		controls.c \
+		printing.c \
+		treat_map.c \
+		treat_file.c \
+		treat_file_utils.c \
+		store_image.c \
+		display_utils.c \
+		hooks.c \
+		get_wall_dist.c \
+		draw_texture.c \
+		raycast.c
 
 OBJS = $(FILES:%.c=$(OBJ_DIR)/%.o)
+OBJS_BONUS = $(FILES_BONUS:%.c=$(OBJ_BONUS_DIR)/%.o)
 
 RM = rm -f
 
@@ -42,11 +60,17 @@ RED    = "\033[31m"
 GREEN = "\033[32m"
 RESET = "\033[0m"
 
-all: $(NAME)
+#all: $(NAME)
+all : bonus
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	@echo $(CYAN)"Compiling Cub3D..."$(RESET)
 	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) $(MLX) -I $(INCLUDE) -I $(MLX_DIR) -I $(LIBFT_DIR) -I $(LIBFT_DIR)/includes -o $(NAME) $(MLX_FLAGS)
+	@echo $(GREEN)"$(NAME) executable created !"$(RESET)
+
+bonus : $(LIBFT) $(MLX) $(OBJS_BONUS)
+	@echo $(CYAN)"Compiling Cub3D..."$(RESET)
+	@$(CC) $(FLAGS) $(OBJS_BONUS) $(LIBFT) $(MLX) -I $(INCLUDE) -I $(MLX_DIR) -I $(LIBFT_DIR) -I $(LIBFT_DIR)/includes -o $(NAME) $(MLX_FLAGS)
 	@echo $(GREEN)"$(NAME) executable created !"$(RESET)
 
 $(LIBFT):
@@ -63,9 +87,14 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(FLAGS) -I $(INCLUDE) -I $(LIBFT_DIR) -I $(LIBFT_DIR)/includes -I $(MLX_DIR) -c $< -o $@
 
+$(OBJ_BONUS_DIR)/%.o: $(BONUS_DIR)/%.c
+	@mkdir -p $(OBJ_BONUS_DIR)
+	@$(CC) $(FLAGS) -I $(INCLUDE) -I $(LIBFT_DIR) -I $(LIBFT_DIR)/includes -I $(MLX_DIR) -c $< -o $@
+
 clean:
 	@echo $(GREEN)"Objets files cleared !"$(RESET)
 	@rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_BONUS_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean

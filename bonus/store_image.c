@@ -6,11 +6,11 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:21:23 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/05/09 16:44:35 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:39:36 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static void	store_image(char *pathname, t_map *map, void *mlx_ptr, int i)
 {

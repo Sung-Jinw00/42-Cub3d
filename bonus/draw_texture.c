@@ -6,11 +6,11 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 16:36:53 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/05/09 16:43:54 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:38:38 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static inline t_texture	get_texture(t_game *game,
 		t_raycast *infos, double *wall_x)

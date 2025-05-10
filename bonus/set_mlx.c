@@ -6,11 +6,11 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 17:12:35 by locagnio          #+#    #+#             */
-/*   Updated: 2025/05/09 16:41:07 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:39:20 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	set_mlx(t_mlx *mlx, char *win_title)
 {

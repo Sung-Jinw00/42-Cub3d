@@ -6,11 +6,11 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 23:49:22 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/05/09 17:47:08 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:38:55 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static inline void	init_steps_infos(t_player player, double ray_dir[2],
 		double side_dist[2], int steps[2])

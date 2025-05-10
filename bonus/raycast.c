@@ -6,11 +6,11 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:17:03 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/05/09 16:56:45 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:39:15 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static inline void	draw_ceil_and_floor(int *addr, int color,
 		int size_line, int len)

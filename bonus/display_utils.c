@@ -6,11 +6,11 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 16:31:43 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/04/30 16:20:16 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:37:45 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	put_pixel(t_img *img, int x, int y, int color)
 {

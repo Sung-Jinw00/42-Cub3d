@@ -6,11 +6,11 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/05/06 02:50:48 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:39:48 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static char	*formated_map(char **map_array, t_map *map, int *len_strings, int i)
 {
