@@ -6,17 +6,14 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:40:40 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/14 18:26:15 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/18 15:03:16 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-static void	init_camera(t_game *game, char dir)
+static void	init_camera(t_player *player, char dir)
 {
-	t_player	*player;
-
-	player = &game->player;
 	if (dir == 'W' || dir == 'E')
 	{
 		player->direction_x = 1 - (2 * (dir == 'W'));
@@ -31,12 +28,7 @@ static void	init_camera(t_game *game, char dir)
 		if (dir == 'S')
 			player->plane_x = -0.66;
 	}
-	player->ray_dir_x[0] = player->direction_x - player->plane_x;
-	player->ray_dir_x[1] = (player->direction_x + player->plane_x)
-		- player->ray_dir_x[0];
-	player->ray_dir_y[0] = player->direction_y - player->plane_y;
-	player->ray_dir_y[1] = (player->direction_y + player->plane_y)
-		- player->ray_dir_y[0];
+	update_player_ray_dirs(player);
 }
 
 static void	get_player_infos(t_game *game)
@@ -55,7 +47,7 @@ static void	get_player_infos(t_game *game)
 	while (!ft_strchr("NSEW", game->map.map_array[y][x]))
 		x++;
 	game->player.x = x + 0.5001;
-	init_camera(game, game->map.map_array[y][x]);
+	init_camera(&game->player, game->map.map_array[y][x]);
 	game->map.map_array[(int)game->player.y][(int)game->player.x] = '0';
 	game->map.map[(int)((game->player.y * game->map.w_map)
 			+ game->player.x)] = '0';

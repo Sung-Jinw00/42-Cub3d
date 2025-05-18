@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/05/18 13:58:34 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/18 15:05:34 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ void	put_pixel(t_img *img, int x, int y, int color);
 int		get_pixel_color(t_img *img, int x, int y);
 void	init_size_line_steps(int size_line, int steps[5]);
 double	*init_row_dist_table(int half_height);
+void	update_player_ray_dirs(t_player *player);
 
 //mlx
 int		set_mlx(t_mlx *mlx, char *win_title);

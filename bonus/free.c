@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:43:42 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/18 12:24:25 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/18 14:30:14 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static void	free_map(t_map *map, void *mlx)
 	mlx_destroy_image(mlx, map->tex_list[1].ptr);
 	mlx_destroy_image(mlx, map->tex_list[2].ptr);
 	mlx_destroy_image(mlx, map->tex_list[3].ptr);
+	mlx_destroy_image(mlx, map->tex_list[4].ptr);
+	mlx_destroy_image(mlx, map->tex_list[5].ptr);
 	free(map->tex_list);
 }
 

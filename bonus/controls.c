@@ -6,20 +6,18 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 17:02:01 by locagnio          #+#    #+#             */
-/*   Updated: 2025/05/15 11:40:38 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/18 15:04:54 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-static void	update_player_ray_dirs(t_player *player)
+inline void	update_player_ray_dirs(t_player *player)
 {
 	player->ray_dir_x[0] = player->direction_x - player->plane_x;
-	player->ray_dir_x[1] = (player->direction_x + player->plane_x)
-		- player->ray_dir_x[0];
+	player->ray_dir_x[1] = player->plane_x * 2;
 	player->ray_dir_y[0] = player->direction_y - player->plane_y;
-	player->ray_dir_y[1] = (player->direction_y + player->plane_y)
-		- player->ray_dir_y[0];
+	player->ray_dir_y[1] = player->plane_y * 2;
 }
 
 int	key_pressed_check_camera(t_player *player, t_keyboard_control key_infos)
