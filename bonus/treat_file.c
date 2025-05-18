@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:47:09 by locagnio          #+#    #+#             */
-/*   Updated: 2025/05/10 14:39:42 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/18 13:53:26 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	get_rgb(t_map *map, char *info, int elem)
 		rgb[j++] = ft_natoi(info, &i);
 		if (!ft_isnum(info[i - 1]) || rgb[j - 1] > 255 || rgb[j - 1] < 0)
 			return (ft_error("Invalid RGB color.\n"), 0);
-		if (i != '\n')
+		if (info[i] != '\n')
 			i++;
 	}
 	while (info[i] && info[i] != '\n')
@@ -53,18 +53,18 @@ static int	get_map_infos(t_map *map, char *info, char **elem, int elem_nb)
 {
 	int	len_line;
 
-	if (elem_nb < 4)
+	if ((elem_nb >= 4) && ft_isnum(info[2]))
+		return (get_rgb(map, info + 2, elem_nb));
+	else
 	{
 		len_line = ft_strclen(info, '\n');
 		if (len_line < 4)
 			return (ft_error("No informations for an elem.\n"), 0);
-		len_line -= 3;
-		*elem = ft_strndup(info + 3, len_line);
+		len_line -= 3 - (elem_nb >= 4);
+		*elem = ft_strndup(info + (3 - (elem_nb >= 4)), len_line);
 		if (!path_is_valid(*elem))
 			return (0);
 	}
-	else if ((elem_nb < 6) && !get_rgb(map, info + 2, elem_nb))
-		return (0);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:40:40 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 14:39:07 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/14 18:26:15 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,29 @@
 
 static void	init_camera(t_game *game, char dir)
 {
+	t_player	*player;
+
+	player = &game->player;
 	if (dir == 'W' || dir == 'E')
 	{
-		game->player.direction_x = 1 - (2 * (dir == 'W'));
-		game->player.plane_y = 0.66;
+		player->direction_x = 1 - (2 * (dir == 'W'));
+		player->plane_y = 0.66;
 		if (dir == 'W')
-			game->player.plane_y = -0.66;
+			player->plane_y = -0.66;
 	}
 	else
 	{
-		game->player.direction_y = 1 - (2 * (dir == 'N'));
-		game->player.plane_x = 0.66;
+		player->direction_y = 1 - (2 * (dir == 'N'));
+		player->plane_x = 0.66;
 		if (dir == 'S')
-			game->player.plane_x = -0.66;
+			player->plane_x = -0.66;
 	}
+	player->ray_dir_x[0] = player->direction_x - player->plane_x;
+	player->ray_dir_x[1] = (player->direction_x + player->plane_x)
+		- player->ray_dir_x[0];
+	player->ray_dir_y[0] = player->direction_y - player->plane_y;
+	player->ray_dir_y[1] = (player->direction_y + player->plane_y)
+		- player->ray_dir_y[0];
 }
 
 static void	get_player_infos(t_game *game)

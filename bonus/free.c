@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:43:42 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/10 14:38:46 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/18 12:24:25 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ void	free_game(t_game *game)
 {
 	free_map(&game->map, game->mlx.init);
 	free_mlx(&game->mlx);
+	free(game->raycast.row_dist_table);
 }

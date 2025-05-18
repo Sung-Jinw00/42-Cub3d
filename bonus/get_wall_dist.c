@@ -6,7 +6,7 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 23:49:22 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/05/10 14:38:55 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:32:09 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ static inline void	init_delta_infos(t_player player,
 {
 	map_pos[0] = (int)player.x;
 	map_pos[1] = (int)player.y;
-	delta_dist[0] = 1;
+	delta_dist[0] = 1000;
 	if (ray_dir[0])
 		delta_dist[0] = fabs(1 / ray_dir[0]);
-	delta_dist[1] = 1;
+	delta_dist[1] = 1000;
 	if (ray_dir[1])
 		delta_dist[1] = fabs(1 / ray_dir[1]);
 }

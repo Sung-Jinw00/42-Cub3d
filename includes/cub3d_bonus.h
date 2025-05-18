@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 19:01:51 by locagnio          #+#    #+#             */
-/*   Updated: 2025/05/09 18:35:22 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/18 13:58:34 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <math.h>
 # include <fcntl.h> // open
@@ -28,10 +28,10 @@
 
 //game settings
 # ifndef SPEED
-#  define SPEED			0.06666
+#  define SPEED			0.06666f
 # endif
 # ifndef ROT_SPEED
-#  define ROT_SPEED		0.10
+#  define ROT_SPEED		0.10f
 # endif
 
 //window settings
@@ -69,6 +69,7 @@ typedef struct s_keyboard_control
 
 typedef struct s_raycast
 {
+	int			*addr;
 	char		side;
 	int			line_height;
 	int			half_line_height;
@@ -77,8 +78,10 @@ typedef struct s_raycast
 	double		wall_dist;
 	int			texture_x;
 	int			size_line;
-	int			*addr;
+	double		*row_dist_table;
 	int			half_win_height;
+	double		cam_x;
+	double		cam_x_step;
 }	t_raycast;
 
 typedef struct s_opti_const
@@ -110,16 +113,21 @@ typedef struct s_player
 	double	plane_y;
 	double	direction_x;
 	double	direction_y;
+	double	ray_dir_x[2];
+	double	ray_dir_y[2];
 	double	mvt_speed;
 }	t_player;
 
 typedef struct s_map
 {
+	t_player	*player;
 	t_texture	*tex_list;
 	char		*no_path;
 	char		*so_path;
 	char		*we_path;
 	char		*ea_path;
+	char		*floor_path;
+	char		*ceil_path;
 	int			f_rgb;
 	int			c_rgb;
 	char		*map;
@@ -133,6 +141,7 @@ typedef struct s_game
 	t_mlx				mlx;
 	t_map				map;
 	t_player			player;
+	t_raycast			raycast;
 	t_opti_const		consts;
 	t_keyboard_control	key_infos;
 }	t_game;
@@ -157,13 +166,15 @@ void	print_map(t_map *map);
 
 //display utils
 void	store_textures(t_map *map, void *mlx);
-void	display_screen(t_game *game, t_opti_const consts, t_mlx mlx);
+void	display_screen(t_game *game, t_opti_const consts,
+			t_mlx mlx, t_raycast infos);
 void	put_texture(t_game *game, int *addr, t_raycast *infos, int size_line);
 double	get_wall_dist(t_player player, t_raycast *infos,
 			double cam_x, char **map);
 void	put_pixel(t_img *img, int x, int y, int color);
 int		get_pixel_color(t_img *img, int x, int y);
 void	init_size_line_steps(int size_line, int steps[5]);
+double	*init_row_dist_table(int half_height);
 
 //mlx
 int		set_mlx(t_mlx *mlx, char *win_title);
@@ -171,7 +182,8 @@ int		set_mlx(t_mlx *mlx, char *win_title);
 //controls
 void	init_hooks(t_game *game);
 void	key_pressed_check_controls(t_game *game);
-int		key_pressed_check_camera(t_game *game);
+int		key_pressed_check_camera(t_player *player,
+			t_keyboard_control key_infos);
 
 //debug
 void	print_map(t_map *map);

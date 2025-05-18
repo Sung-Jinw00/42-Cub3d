@@ -6,7 +6,7 @@
 /*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 16:36:53 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/05/10 14:38:38 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:51:07 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	put_texture(t_game *game, int *addr, t_raycast *infos, int size_line)
 
 	tex = get_texture(game, infos, &wall_x);
 	wall_x -= (int)wall_x;
-	tex_x = (int)(wall_x * tex.d_width);
+	tex_x = (wall_x * tex.d_width);
 	if ((!infos->side && infos->ray_dir[0] > 0)
 		|| (infos->side && infos->ray_dir[1] < 0))
 		tex_x = tex.width - tex_x - 1;

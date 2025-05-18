@@ -6,7 +6,7 @@
 /*   By: locagnio <locagnio@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 20:53:48 by locagnio          #+#    #+#             */
-/*   Updated: 2025/05/10 14:39:45 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/18 13:55:45 by gakarbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ char	**get_elem(t_map *map, int elem)
 		return (&map->we_path);
 	else if (elem == 3)
 		return (&map->ea_path);
+	else if (elem == 4)
+		return (&map->floor_path);
+	else if (elem == 5)
+		return (&map->ceil_path);
 	return (NULL);
 }
 
