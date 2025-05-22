@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gakarbou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 02:51:28 by gakarbou          #+#    #+#             */
-/*   Updated: 2025/05/18 12:23:41 by gakarbou         ###   ########.fr       */
+/*   Updated: 2025/05/22 19:49:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	loop(t_game *game)
 	key_pressed_check_controls(game);
 	key_pressed_check_camera(&game->player, game->key_infos);
 	display_screen(game, game->consts, game->mlx, game->raycast);
+	display_minimap(*game);
 	return (0);
 }
 

@@ -15,41 +15,43 @@ MLX_DIR = mlx
 MLX = $(MLX_DIR)/libmlx_Linux.a
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g -Ofast
+FLAGS = -Wall -Wextra -Werror -g
+# FLAGS = -Wall -Wextra -Werror -g -Ofast
 MLX_FLAGS = -lX11 -lXext -lm
 
-FILES = main.c \
-		free.c \
-		player.c \
-		set_mlx.c \
-		controls.c \
-		printing.c \
-		treat_map.c \
-		treat_file.c \
-		treat_file_utils.c \
-		store_image.c \
-		display_utils.c \
-		hooks.c \
-		get_wall_dist.c \
-		draw_texture.c \
-		raycast.c
+FILES	 =  main.c \
+			free.c \
+			hooks.c \
+			player.c \
+			raycast.c \
+			set_mlx.c \
+			controls.c \
+			printing.c \
+			treat_map.c \
+			treat_file.c \
+			store_image.c \
+			draw_texture.c \
+			display_utils.c \
+			get_wall_dist.c \
+			treat_file_utils.c
 
 FILES_BONUS = main.c \
-		free.c \
-		player.c \
-		set_mlx.c \
-		controls.c \
-		printing.c \
-		treat_map.c \
-		treat_file.c \
-		treat_file_utils.c \
-		store_image.c \
-		display_utils.c \
-		hooks.c \
-		get_wall_dist.c \
-		draw_texture.c \
-		raycast_utils.c \
-		raycast.c
+			  free.c \
+			  hooks.c \
+			  player.c \
+			  raycast.c \
+			  minimap.c \
+			  set_mlx.c \
+			  controls.c \
+			  printing.c \
+			  treat_map.c \
+			  treat_file.c \
+			  store_image.c \
+			  draw_texture.c \
+			  display_utils.c \
+			  get_wall_dist.c \
+			  raycast_utils.c \
+			  treat_file_utils.c
 
 OBJS = $(FILES:%.c=$(OBJ_DIR)/%.o)
 OBJS_BONUS = $(FILES_BONUS:%.c=$(OBJ_BONUS_DIR)/%.o)

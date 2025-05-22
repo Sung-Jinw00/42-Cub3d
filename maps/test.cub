@@ -1,7 +1,7 @@
-NO ./test.cub
-SO ./test.cub
-WE ./test.cub
-EA ./test.cub
+NO maps/test.cub       
+SO maps/test.cub
+WE maps/test.cub
+EA maps/test.cub
 
 F 255,0,0
 C 255,0,0
